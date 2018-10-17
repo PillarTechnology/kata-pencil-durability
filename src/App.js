@@ -7,6 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Pencil Durability</h1>
+        <input></input>
       </div>
     );
   }

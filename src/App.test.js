@@ -16,3 +16,13 @@ it('renders the heading', () => {
   expect(container.querySelector('h1')).toBeInTheDocument();
   expect(getByText('Pencil Durability'));
 });
+
+it('renders the writing recorder', () => {
+  const div = document.createElement('div');
+  const {container, getByText} = render(<App />, div);
+
+  const input = container.querySelector('input');
+
+  expect(input).toBeInTheDocument();
+  expect(input).toBeEmpty();
+});
