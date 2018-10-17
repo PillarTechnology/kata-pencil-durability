@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './Paper.css';
 
-class App extends Component {
+class Paper extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="Paper">
         <h1>Pencil Durability</h1>
+        <textarea></textarea>
         <input></input>
       </div>
     );
   }
 }
 
-export default App;
+export default Paper;
