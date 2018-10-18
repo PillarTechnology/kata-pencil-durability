@@ -22,10 +22,11 @@ it('renders the writing recorder', () => {
   const div = document.createElement('div');
   const {container} = render(<Paper />, div);
 
-  const input = container.querySelector('input');
+  const textareas = container.querySelectorAll('textarea');
 
-  expect(input).toBeInTheDocument();
-  expect(input).toBeEmpty();
+  expect(textareas).toHaveLength(1);
+  expect(textareas[0]).toBeInTheDocument();
+  expect(textareas[0]).toBeEmpty();
 });
 
 it('records writing', async () => {
@@ -33,20 +34,10 @@ it('records writing', async () => {
   const div = document.createElement('div');
   const {container, getByText} = render(<Paper />, div);
 
-  let input = container.querySelector('input');
-  input.textContent = expectedWriting;
+  let textarea = container.querySelector('textarea');
+  textarea.textContent = expectedWriting;
 
-  input = await waitForElement(() =>
+  textarea = await waitForElement(() =>
     getByText(expectedWriting)
   );
-});
-
-it('snapshots writing', () => {
-  const div = document.createElement('div');
-  const {container} = render(<Paper />, div);
-
-  const textarea = container.querySelector('textarea');
-
-  expect(textarea).toBeInTheDocument();
-  expect(textarea).toBeEmpty();
 });

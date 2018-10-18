@@ -8,7 +8,6 @@ class Paper extends Component {
       <div className="Paper">
         <h1>Pencil Durability</h1>
         <textarea></textarea>
-        <input></input>
       </div>
     );
   }
