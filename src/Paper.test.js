@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {render, waitForElement} from 'react-testing-library';
+import {render, waitForElement, fireEvent} from 'react-testing-library';
 import getlorem from 'getlorem';
 import Paper from './Paper';
+var ReactTestUtils = require('react-dom/test-utils'); 
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -38,6 +39,23 @@ it('records writing', async () => {
   textarea.textContent = expectedWriting;
 
   textarea = await waitForElement(() =>
+    getByText(expectedWriting)
+  );
+});
+
+it('appends to existing writing', async () => {
+  const existingWriting = getlorem.sentences(5);
+  const newWriting = getlorem.words(5);
+  const expectedWriting = existingWriting + newWriting
+  const div = document.createElement('div');
+  const {container, getByText} = render(<Paper />, div);
+
+  let textarea = container.querySelector('textarea');
+  fireEvent.change(textarea, {target: {value: existingWriting}});
+
+  fireEvent.change(textarea, {target: {value: expectedWriting}});
+
+  await waitForElement(() =>
     getByText(expectedWriting)
   );
 });
