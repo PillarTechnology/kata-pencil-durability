@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {render, waitForElement, fireEvent} from 'react-testing-library';
 import getlorem from 'getlorem';
 import Paper from './Paper';
-var ReactTestUtils = require('react-dom/test-utils'); 
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
