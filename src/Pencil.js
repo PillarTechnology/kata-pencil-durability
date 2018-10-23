@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Pencil = ({durabilityRating}) => <progress></progress>;
+const Pencil = ({durabilityRating}) => <progress value={durabilityRating}></progress>;
 export default Pencil;
  
 Pencil.defaultProps = {

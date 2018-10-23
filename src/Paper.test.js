@@ -58,7 +58,3 @@ it('appends to existing writing', async () => {
     getByText(expectedWriting)
   );
 });
-
-describe('pencil behavior', {
-
-});

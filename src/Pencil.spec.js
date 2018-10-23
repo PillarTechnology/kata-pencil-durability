@@ -31,4 +31,13 @@ describe('pencil behavior', () => {
         expect(progresses).toHaveLength(1);
         expect(progresses[0]).toBeInTheDocument();
       });
+
+      it('renders the pencil unused by default', () => {
+        const div = document.createElement('div');
+        const {container} = render(<Pencil />, div);
+      
+        const progress = container.querySelector('progress');
+        
+        expect(progress.getAttribute('value')).toEqual('100');
+    })
 });
