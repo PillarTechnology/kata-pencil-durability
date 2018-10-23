@@ -21,4 +21,14 @@ describe('pencil behavior', () => {
 
         expect(console.error).toHaveBeenCalledTimes(0);
     });
+
+    it('renders a dullable pencil', () => {
+        const div = document.createElement('div');
+        const {container} = render(<Pencil />, div);
+      
+        const progresses = container.querySelectorAll('progress');
+      
+        expect(progresses).toHaveLength(1);
+        expect(progresses[0]).toBeInTheDocument();
+      });
 });

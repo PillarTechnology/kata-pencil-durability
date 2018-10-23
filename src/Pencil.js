@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Pencil = ({remainingLead}) => <p></p>;
+const Pencil = ({durabilityRating}) => <progress></progress>;
 export default Pencil;
  
 Pencil.defaultProps = {
-    remainingLead: 100
+    durabilityRating: 100
 };
 
 Pencil.propTypes = {
-   remainingLead: PropTypes.number.isRequired
+    durabilityRating: PropTypes.number.isRequired
 };
