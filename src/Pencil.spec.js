@@ -32,12 +32,21 @@ describe('pencil behavior', () => {
         expect(progresses[0]).toBeInTheDocument();
       });
 
-      it('renders the pencil unused by default', () => {
+    it('renders the pencil unused by default', () => {
         const div = document.createElement('div');
         const {container} = render(<Pencil />, div);
       
         const progress = container.querySelector('progress');
-        
+
         expect(progress.getAttribute('value')).toEqual('100');
-    })
+    });
+
+    it('cannot exceed specified durability', () => {
+        const div = document.createElement('div');
+
+        const {container} = render(<Pencil durabilityRating={4}/>, div);
+        const progress = container.querySelector('progress');
+
+        expect(progress.getAttribute('max')).toEqual('4');
+    });
 });
