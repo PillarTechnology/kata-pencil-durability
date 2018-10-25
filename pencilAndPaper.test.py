@@ -29,6 +29,21 @@ class TestPencil(unittest.TestCase):
     self.assertEqual(pencil.point, 10)
     pencil.sharpen()
     self.assertEqual(pencil.point, 10)
+  def testEraser(self):
+    pencil = Pencil()
+    pencil.write('Hello World!')
+    self.assertEqual(pencil.text, 'Hello World!')
+    pencil.erase('Hello')
+    self.assertEqual(pencil.text, '      World!')
+    pencil.erase('!')
+    self.assertEqual(pencil.text, '      World ')
+    pencil2 = Pencil(100, 1)
+    self.assertEqual(pencil2.eraser, 1)
+    pencil2.write('Hi')
+    pencil2.erase('Hi')
+    self.assertEqual(pencil2.text, ' i')
+    self.assertEqual(pencil2.eraser, 0)
+    self.assertEqual(pencil2.erase('Hi'), 'Hi was not found on the paper.')
     
 
 if __name__ == '__main__':

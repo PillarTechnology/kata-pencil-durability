@@ -29,3 +29,23 @@ class PencilAndPaper(object):
         self.text += ' '
   def sharpen(self):
     self.point = self.initialStats['point']
+  def erase(self, text):
+    if type(text) is not str:
+      try:
+        text = str(text)
+      except TypeError:
+        print('Unexpected text type.')
+    if text not in self.text:
+      return '{} was not found on the paper.'.format(text)
+    else:
+      index = self.text.rfind(text)
+      arr = list(self.text)
+      i = len(text)
+      while i > 0 and self.eraser > 0:
+        arr[index] = ' '
+        index += 1
+        self.eraser -= 1
+        i-=1
+      self.text = ''.join(arr)
+
+
