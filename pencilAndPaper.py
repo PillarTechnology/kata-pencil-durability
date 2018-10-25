@@ -5,6 +5,7 @@ class PencilAndPaper(object):
     self.point = initPoint
     self.eraser = initEraser
     self.text = initText
+    self.editPoint = None
     self.initialStats = {'point': initPoint, 'eraser': initEraser, 'text': initText}
   def write(self, msg):
     if type(msg) is not str:
@@ -39,6 +40,7 @@ class PencilAndPaper(object):
       return '{} was not found on the paper.'.format(text)
     else:
       index = self.text.rfind(text)
+      self.editPoint = index
       arr = list(self.text)
       i = len(text)
       while i > 0 and self.eraser > 0:
@@ -47,5 +49,31 @@ class PencilAndPaper(object):
         self.eraser -= 1
         i-=1
       self.text = ''.join(arr)
-
+  def edit(self, msg):
+    if type(msg) is not str:
+      try:
+        msg = str(msg)
+      except TypeError:
+        print('Unexpected message type.')
+    chars = list(msg)
+    arrStr = list(self.text)
+    for char in chars:
+      x = char
+      if arrStr[self.editPoint] is not ' ':
+        x = '@'
+      if char.isupper():
+        if self.point > 1:
+          arrStr[self.editPoint] = x
+          self.point -= 2
+          self.editPoint += 1
+        else:
+          self.text += ' '
+          self.editPoint += 1
+      elif self.point > 0:
+        arrStr[self.editPoint] = x
+        self.point -= 1
+        self.editPoint += 1
+      else:
+        self.editPoint += 1
+      self.text = ''.join(arrStr)
 
