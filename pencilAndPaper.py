@@ -27,3 +27,5 @@ class PencilAndPaper(object):
         self.point -= 1
       else:
         self.text += ' '
+  def sharpen(self):
+    self.point = self.initialStats['point']

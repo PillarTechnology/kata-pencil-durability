@@ -21,6 +21,14 @@ class TestPencil(unittest.TestCase):
     pencil2.write('Hello WoRLD')
     self.assertEqual(pencil2.point, 1)
     self.assertEqual(pencil2.text, 'Hello Wo   ')
+  def testSharpen(self):
+    pencil = Pencil(10)
+    pencil.write('Hello World!')
+    self.assertEqual(pencil.point, 0)
+    pencil.sharpen()
+    self.assertEqual(pencil.point, 10)
+    pencil.sharpen()
+    self.assertEqual(pencil.point, 10)
     
 
 if __name__ == '__main__':
