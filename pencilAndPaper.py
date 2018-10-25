@@ -6,3 +6,24 @@ class PencilAndPaper(object):
     self.eraser = initEraser
     self.text = initText
     self.initialStats = {'point': initPoint, 'eraser': initEraser, 'text': initText}
+  def write(self, msg):
+    if type(msg) is not str:
+      try:
+        msg = str(msg)
+      except TypeError:
+        print('Unexpected message type.')
+    chars = list(msg)
+    for char in chars:
+      if char == ' ':
+        self.text += char
+      elif char.isupper():
+        if self.point > 1:
+          self.text += char
+          self.point -= 2
+        else:
+          self.text += ' '
+      elif self.point > 0:
+        self.text += char
+        self.point -= 1
+      else:
+        self.text += ' '
