@@ -50,7 +50,7 @@ describe('pencil behavior', () => {
         expect(progress.getAttribute('max')).toEqual('4');
     });
 
-    it('goes dull after use', () => {
+    it('indicates dullness as used', () => {
         const div = document.createElement('div');
 
         const {container} = render(<Pencil durabilityRating={4} used={4}/>, div);

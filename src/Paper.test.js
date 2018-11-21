@@ -47,7 +47,7 @@ it('appends to existing writing', async () => {
   const newWriting = getlorem.words(5);
   const expectedWriting = existingWriting + newWriting
   const div = document.createElement('div');
-  const {container, getByText} = render(<Paper />, div);
+  const {container, getByText} = render(<Paper durabilityRating={expectedWriting.length}/>, div);
 
   let textarea = container.querySelector('textarea');
   fireEvent.change(textarea, {target: {value: existingWriting}});
@@ -58,3 +58,18 @@ it('appends to existing writing', async () => {
     getByText(expectedWriting)
   );
 });
+
+it('renders only space characters when pencil worn out', async () => {
+  const givenWriting = 'pqwxy';
+  const expectedWriting = 'pqwx ';
+  const div = document.createElement('div');
+  const {container, getByText} = render(<Paper />, div);
+
+  let textarea = container.querySelector('textarea');
+  fireEvent.change(textarea, {target: {value: givenWriting}});
+
+  await waitForElement(() =>
+    getByText(expectedWriting, {trim: false})
+  );
+});
+
