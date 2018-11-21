@@ -49,4 +49,13 @@ describe('pencil behavior', () => {
 
         expect(progress.getAttribute('max')).toEqual('4');
     });
+
+    it('goes dull after use', () => {
+        const div = document.createElement('div');
+
+        const {container} = render(<Pencil durabilityRating={4} used={4}/>, div);
+        const progress = container.querySelector('progress');
+
+        expect(progress.getAttribute('value')).toEqual('0');
+    });
 });
