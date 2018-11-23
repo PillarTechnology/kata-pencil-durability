@@ -12,29 +12,32 @@ class Paper extends Component {
   
   getSliceIndex = (ix) => {
     const charArray = ix.split('');
-    let count = 0, i = 0;
+    let numNonSpaceChars = 0, i = 0;
     for (i = 0; i < charArray.length; i++) {
-      count = /\s/.test(charArray[i]) ? count : count+=1;
-      if (count >= this.state.durabilityRating){
+      numNonSpaceChars = /\s/.test(charArray[i]) ? numNonSpaceChars : numNonSpaceChars += 1;
+      if (numNonSpaceChars >= this.state.durabilityRating){
         break;
       }
     }
    return i;
-  }
+  };
+
+  hasNeutralChars = (ix) => this.state.durabilityRating > ix;
+
+  adjustRemainingValue = (ix, base) => {
+    const valueSubString = base.slice(0, ix + 1)
+    return valueSubString.padEnd(base.length);
+  };
 
   handleChange(event) {
+    let valueGivenDurability = event.target.value;  
     const raw = event.target.value;
-    let valueGivenDurability = event.target.value;
-    const charactersUsingLead = valueGivenDurability.replace(/\s+/g, '');
-    
-    if (this.state.durabilityRating - charactersUsingLead.length <= 0) {
-      const sliceIndex = this.getSliceIndex(raw);
-      const valueSubString = raw.slice(0, sliceIndex + 1)
-      valueGivenDurability = valueSubString.padEnd(raw.length);
-    }
+    const sliceIndex = this.getSliceIndex(raw);
+
     this.setState(
       {
-        value: valueGivenDurability
+        value: this.hasNeutralChars(sliceIndex) ? 
+                this.adjustRemainingValue(sliceIndex, raw) : valueGivenDurability
       });
   }
 
