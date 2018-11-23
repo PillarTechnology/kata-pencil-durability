@@ -73,3 +73,19 @@ it('renders only space characters when pencil worn out', async () => {
   );
 });
 
+it('should not dull given space characters', async () => {
+  const givenWriting = `vw  
+  x y`;
+  const expectedWriting = `vw  
+  x y`;
+  const div = document.createElement('div');
+  const {container, getByText} = render(<Paper />, div);
+
+  let textarea = container.querySelector('textarea');
+  fireEvent.change(textarea, {target: {value: givenWriting}});
+
+  await waitForElement(() =>
+    getByText(expectedWriting, {collapseWhitespace: false, trim: false})
+  );
+});
+

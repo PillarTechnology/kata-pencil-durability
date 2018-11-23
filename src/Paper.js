@@ -9,13 +9,27 @@ class Paper extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
+  
+  getSliceIndex = (ix) => {
+    const charArray = ix.split('');
+    let count = 0, i = 0;
+    for (i = 0; i < charArray.length; i++) {
+      count = /\s/.test(charArray[i]) ? count : count+=1;
+      if (count >= this.state.durabilityRating){
+        break;
+      }
+    }
+   return i;
+  }
 
   handleChange(event) {
     const raw = event.target.value;
     let valueGivenDurability = event.target.value;
-
-    if (this.state.durabilityRating - valueGivenDurability.length <= 0) {
-      const valueSubString = valueGivenDurability.slice(0, this.state.durabilityRating)
+    const charactersUsingLead = valueGivenDurability.replace(/\s+/g, '');
+    
+    if (this.state.durabilityRating - charactersUsingLead.length <= 0) {
+      const sliceIndex = this.getSliceIndex(raw);
+      const valueSubString = raw.slice(0, sliceIndex + 1)
       valueGivenDurability = valueSubString.padEnd(raw.length);
     }
     this.setState(
