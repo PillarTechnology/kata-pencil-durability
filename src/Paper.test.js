@@ -59,7 +59,7 @@ it('appends to existing writing', async () => {
   );
 });
 
-it('renders only space characters when pencil worn out', async () => {
+it('renders only space characters when pencil used up by lowercase letters', async () => {
   const givenWriting = 'pqwxy';
   const expectedWriting = 'pqwx ';
   const div = document.createElement('div');
@@ -69,7 +69,21 @@ it('renders only space characters when pencil worn out', async () => {
   fireEvent.change(textarea, {target: {value: givenWriting}});
 
   await waitForElement(() =>
-    getByText(expectedWriting, {trim: false})
+    getByText(expectedWriting, {collapseWhitespace: false, trim: false})
+  );
+});
+
+it('renders only space characters when pencil used up by uppercase letters', async () => {
+  const givenWriting = 'PQW';
+  const expectedWriting = 'PQ ';
+  const div = document.createElement('div');
+  const {container, getByText} = render(<Paper />, div);
+
+  let textarea = container.querySelector('textarea');
+  fireEvent.change(textarea, {target: {value: givenWriting}});
+
+  await waitForElement(() =>
+    getByText(expectedWriting, {collapseWhitespace: false, trim: false})
   );
 });
 

@@ -14,7 +14,8 @@ class Paper extends Component {
     const charArray = ix.split('');
     let numNonSpaceChars = 0, i = 0;
     for (i = 0; i < charArray.length; i++) {
-      numNonSpaceChars = /\s/.test(charArray[i]) ? numNonSpaceChars : numNonSpaceChars += 1;
+      const weight = charArray[i] === charArray[i].toUpperCase() ? 2 : 1;
+      numNonSpaceChars = /\s/.test(charArray[i]) ? numNonSpaceChars : numNonSpaceChars += weight;
       if (numNonSpaceChars >= this.state.durabilityRating){
         break;
       }
