@@ -12,42 +12,44 @@ class Paper extends Component {
       durabilityRating: this.props.durabilityRating || 4,
     };
 
+    this.LOWER_CASE_WEIGHT = 1;
+    this.UPPER_CASE_WEIGHT = 2;
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   degrade = (amountOfUse) => this.setState({used: amountOfUse});
   sharpen = (e) => this.setState({used: 0});
+  getWeight = (char) => char === char.toLowerCase() ? this.LOWER_CASE_WEIGHT : this.UPPER_CASE_WEIGHT;
   
-  getSliceIndex = (ix) => {
+  measureWriting = (ix) => {
     const charArray = ix.split('');
-    let numNonSpaceChars = 0, i = 0;
+    let numUsedChars = 0, i = 0;
     for (i = 0; i < charArray.length; i++) {
-      const weight = charArray[i] === charArray[i].toLowerCase() ? 1 : 2;
-      numNonSpaceChars = /\s/.test(charArray[i]) ? numNonSpaceChars : numNonSpaceChars += weight;
-      if (numNonSpaceChars >= this.state.durabilityRating){
+      numUsedChars = /\s/.test(charArray[i]) ? numUsedChars : numUsedChars += this.getWeight(charArray[i]);
+      if (numUsedChars >= this.state.durabilityRating){
         break;
       }
     }
-    this.degrade(numNonSpaceChars);
-    return i;
+    return {degradedIndex: i, numUsedChars};
   };
 
   hasNeutralChars = (ix) => this.state.durabilityRating > ix;
 
-  adjustRemainingValue = (ix, base) => {
+  adjustWriting = (ix, base) => {
     const valueSubString = base.slice(0, ix + 1)
     return valueSubString.padEnd(base.length);
   };
 
   handleChange(event) {
-    let valueGivenDurability = event.target.value;  
     const raw = event.target.value;
-    const sliceIndex = this.getSliceIndex(raw);
+    const writingInfo = this.measureWriting(raw);
+    this.degrade(writingInfo.numUsedChars);
 
     this.setState(
       {
-        value: this.hasNeutralChars(sliceIndex) ? 
-                this.adjustRemainingValue(sliceIndex, raw) : valueGivenDurability
+        value: this.hasNeutralChars(writingInfo.degradedIndex) ? 
+                this.adjustWriting(writingInfo.degradedIndex, raw) : raw
       });
   }
 
