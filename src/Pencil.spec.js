@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {render} from 'react-testing-library';
+import {render, fireEvent} from 'react-testing-library';
 import Pencil from './Pencil';
 
 describe('pencil behavior', () => {
@@ -57,5 +57,21 @@ describe('pencil behavior', () => {
         const progress = container.querySelector('progress');
 
         expect(progress.getAttribute('value')).toEqual('0');
+    });
+
+    it('Clicking "sharpen" calls handler', async () => {
+        const mockHandleClick = jest.fn((e) => e);
+        const props = {
+            durabilityRating: 100, 
+            used: 99,
+            handleClick: mockHandleClick
+        };
+        const div = document.createElement('div');
+        const {container} = render(<Pencil {...props} />, div);
+
+        let sharpenButton = container.querySelector('button');
+        fireEvent.click(sharpenButton);
+      
+        expect(mockHandleClick).toHaveBeenCalledTimes(1);
     });
 });

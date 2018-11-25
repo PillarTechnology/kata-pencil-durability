@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Pencil = ({durabilityRating, used}) => 
-    <progress value={used ? durabilityRating - used : durabilityRating} max={durabilityRating}></progress>;
+const Pencil = ({durabilityRating, used, handleClick}) => {
+    return <React.Fragment>
+        <button onClick={handleClick}>Sharpen</button>
+        <progress data-testid='point-progress'
+            value={used ? durabilityRating - used : durabilityRating} max={durabilityRating}></progress>
+    </React.Fragment>
+};
 export default Pencil;
  
 Pencil.defaultProps = {
@@ -10,5 +15,6 @@ Pencil.defaultProps = {
 };
 
 Pencil.propTypes = {
-    durabilityRating: PropTypes.number.isRequired
+    durabilityRating: PropTypes.number.isRequired,
+    handleClick: PropTypes.func.isRequired
 };

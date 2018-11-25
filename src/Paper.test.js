@@ -87,7 +87,7 @@ it('renders only space characters when pencil used up by uppercase letters', asy
   );
 });
 
-it('should not dull given space characters', async () => {
+it('maintains point given space characters', async () => {
   const givenWriting = `vw  
   x y`;
   const expectedWriting = `vw  
@@ -102,4 +102,30 @@ it('should not dull given space characters', async () => {
     getByText(expectedWriting, {collapseWhitespace: false, trim: false})
   );
 });
+
+it('Sharpens to orginal durabilityRating', async () => {
+  const givenWriting = getlorem.words(1).toLowerCase();
+  const expectedUse = givenWriting.length;
+  const durabilityRating = 50;
+
+  const div = document.createElement('div');
+  const {container, getByTestId} = render(<Paper durabilityRating={durabilityRating}/>, div);
+
+  const textarea = container.querySelector('textarea');
+  fireEvent.change(textarea, {target: {value: givenWriting}});
+
+  const progressBefore = await waitForElement(() =>
+    getByTestId('point-progress')
+  );
+  expect(progressBefore.getAttribute('value')).toEqual(String(durabilityRating - expectedUse));
+
+  let sharpenButton = container.querySelector('button');
+  fireEvent.click(sharpenButton);
+
+  const progressAfter = await waitForElement(() =>
+    getByTestId('point-progress')
+  );
+  expect(progressAfter.getAttribute('value')).toEqual(String(durabilityRating));
+});
+
 
