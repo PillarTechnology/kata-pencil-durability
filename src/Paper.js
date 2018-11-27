@@ -6,15 +6,17 @@ import './Paper.css';
 class Paper extends Component {
   constructor(props) {
     super(props);
+    
+    this.LOWER_CASE_WEIGHT = 1;
+    this.UPPER_CASE_WEIGHT = 2;
+    this.DEFAULT_DURABILITY = 4;
+
     this.state = {
       value: '',
       used: 0,
-      durabilityRating: this.props.durabilityRating || 4,
-      baseDurabilityRating: this.props.durabilityRating || 4
+      durabilityRating: this.props.durabilityRating || this.DEFAULT_DURABILITY,
+      baseDurabilityRating: this.props.durabilityRating || this.DEFAULT_DURABILITY
     };
-
-    this.LOWER_CASE_WEIGHT = 1;
-    this.UPPER_CASE_WEIGHT = 2;
 
     this.handleChange = this.handleChange.bind(this);
   }
