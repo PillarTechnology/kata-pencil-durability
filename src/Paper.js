@@ -10,6 +10,7 @@ class Paper extends Component {
       value: '',
       used: 0,
       durabilityRating: this.props.durabilityRating || 4,
+      baseDurabilityRating: this.props.durabilityRating || 4
     };
 
     this.LOWER_CASE_WEIGHT = 1;
@@ -19,7 +20,7 @@ class Paper extends Component {
   }
 
   degrade = (amountOfUse) => this.setState({used: amountOfUse});
-  sharpen = (e) => this.setState({used: 0});
+  sharpen = (e) => this.setState({used: 0, durabilityRating: this.state.durabilityRating + this.state.baseDurabilityRating});
   getWeight = (char) => char === char.toLowerCase() ? this.LOWER_CASE_WEIGHT : this.UPPER_CASE_WEIGHT;
   
   measureWriting = (ix) => {

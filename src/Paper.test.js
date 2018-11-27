@@ -107,6 +107,7 @@ it('Sharpens to orginal durabilityRating', async () => {
   const givenWriting = getlorem.words(1).toLowerCase();
   const expectedUse = givenWriting.length;
   const durabilityRating = 50;
+  const expectedDurabilityRatingAfterSharpen = durabilityRating * 2;
 
   const div = document.createElement('div');
   const {container, getByTestId} = render(<Paper durabilityRating={durabilityRating}/>, div);
@@ -125,7 +126,27 @@ it('Sharpens to orginal durabilityRating', async () => {
   const progressAfter = await waitForElement(() =>
     getByTestId('point-progress')
   );
-  expect(progressAfter.getAttribute('value')).toEqual(String(durabilityRating));
+  expect(progressAfter.getAttribute('value')).toEqual(String(expectedDurabilityRatingAfterSharpen));
 });
 
+it('Allows further writing after sharpening', async () => {
+  const givenWriting = 'abcde';
+  const expectedWriting = 'abcdefgh';
+
+  const div = document.createElement('div');
+  const {container, getByText} = render(<Paper />, div);
+
+  const textarea = container.querySelector('textarea');
+  fireEvent.change(textarea, {target: {value: givenWriting}});
+  
+  const sharpenButton = container.querySelector('button');
+  fireEvent.click(sharpenButton);
+
+  fireEvent.change(textarea, {target: {value: expectedWriting}});
+
+
+  await waitForElement(() =>
+    getByText(expectedWriting, {collapseWhitespace: false, trim: false})
+  );
+});
 
