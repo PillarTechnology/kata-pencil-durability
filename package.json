@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "jest-dom": "^2.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.1.1",
-    "react-testing-library": "^5.2.0"
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -26,6 +24,8 @@
   ],
   "devDependencies": {
     "chance": "^1.0.18",
-    "getlorem": "^1.0.1"
+    "getlorem": "^1.0.1",
+    "jest-dom": "^2.1.0",
+    "react-testing-library": "^5.2.0"
   }
 }
