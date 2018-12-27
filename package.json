@@ -25,6 +25,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "chance": "^1.0.18",
     "getlorem": "^1.0.1"
   }
 }

@@ -10,10 +10,12 @@ class Paper extends Component {
     this.LOWER_CASE_WEIGHT = 1;
     this.UPPER_CASE_WEIGHT = 2;
     this.DEFAULT_DURABILITY = 4;
+    this.DEFAULT_LENGTH = 10;
 
     this.state = {
       value: '',
       used: 0,
+      length: this.props.length || this.DEFAULT_LENGTH,
       durabilityRating: this.props.durabilityRating || this.DEFAULT_DURABILITY,
       baseDurabilityRating: this.props.durabilityRating || this.DEFAULT_DURABILITY
     };
@@ -22,7 +24,11 @@ class Paper extends Component {
   }
 
   degrade = (amountOfUse) => this.setState({used: amountOfUse});
-  sharpen = (e) => this.setState({used: 0, durabilityRating: this.state.durabilityRating + this.state.baseDurabilityRating});
+  sharpen = (e) => this.setState({
+    used: 0,
+    durabilityRating: this.state.durabilityRating + this.state.baseDurabilityRating,
+    length: this.state.length - 1
+  });
   getWeight = (char) => char === char.toLowerCase() ? this.LOWER_CASE_WEIGHT : this.UPPER_CASE_WEIGHT;
   
   measureWriting = (ix) => {
@@ -60,7 +66,7 @@ class Paper extends Component {
     return (
       <div className="Paper">
         <h1>Pencil Durability</h1>
-        <Pencil durabilityRating={this.state.durabilityRating} used={this.state.used} handleClick={this.sharpen}></Pencil>
+        <Pencil durabilityRating={this.state.durabilityRating} used={this.state.used} length={this.state.length} handleClick={this.sharpen}></Pencil>
         <textarea value={this.state.value} onChange={this.handleChange}></textarea>
       </div>
     );

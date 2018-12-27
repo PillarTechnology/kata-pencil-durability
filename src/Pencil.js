@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Pencil = ({durabilityRating, used, handleClick}) => {
+const Pencil = ({durabilityRating, used, length, handleClick}) => {
     return <React.Fragment>
-        <button onClick={handleClick}>Sharpen</button>
+        <button onClick={handleClick}
+                disabled={length > 0 ? false : true}>Sharpen</button>
         <progress data-testid='point-progress'
             value={used ? durabilityRating - used : durabilityRating} max={durabilityRating}></progress>
     </React.Fragment>

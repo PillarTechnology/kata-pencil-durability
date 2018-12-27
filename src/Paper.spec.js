@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {render, waitForElement, fireEvent} from 'react-testing-library';
 import getlorem from 'getlorem';
+import Chance from 'chance';
 import Paper from './Paper';
+
+const chance = new Chance();
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -127,6 +130,20 @@ it('Sharpens to orginal durabilityRating', async () => {
     getByTestId('point-progress')
   );
   expect(progressAfter.getAttribute('value')).toEqual(String(expectedDurabilityRatingAfterSharpen));
+});
+
+
+
+it('Sharpens until length reached', async () => {
+    const div = document.createElement('div');
+    const somePencilLength = chance.natural({min: 1, max: 5});
+    const arrayOfsomePencil = chance.n(chance.natural, somePencilLength);
+    
+    const {container} = render(<Paper length={somePencilLength}/>, div);
+    let sharpenButton = container.querySelector('button');
+    arrayOfsomePencil.forEach(() => fireEvent.click(sharpenButton));
+
+    expect(sharpenButton).toBeDisabled();
 });
 
 it('Allows further writing after sharpening', async () => {
