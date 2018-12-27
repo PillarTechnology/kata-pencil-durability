@@ -76,5 +76,6 @@ class Paper extends Component {
 export default Paper;
 
 Paper.propTypes = {
-  durabilityRating: PropTypes.number
+  durabilityRating: PropTypes.number,
+  length: PropTypes.number
 };

@@ -17,5 +17,7 @@ Pencil.defaultProps = {
 
 Pencil.propTypes = {
     durabilityRating: PropTypes.number.isRequired,
-    handleClick: PropTypes.func.isRequired
+    used: PropTypes.number.isRequired,
+    handleClick: PropTypes.func.isRequired,
+    length: PropTypes.number.isRequired
 };
