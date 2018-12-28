@@ -19,7 +19,7 @@ describe('Sharpener behavior', () => {
         expect(mockHandleClick).toHaveBeenCalledTimes(1);
     });
 
-    it('Disables ability to sharpen as length reached', async () => {
+    it('Disables ability to sharpen as length reaches zero', async () => {
         const div = document.createElement('div');
 
         const {container} = render(<Sharpener length={0} handleClick={mockHandleClick}/>, div);
