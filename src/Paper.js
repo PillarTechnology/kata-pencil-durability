@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Pencil from './Pencil';
+import Sharpener from './Sharpener'
 import PropTypes from 'prop-types';
 import './Paper.css';
 
@@ -66,7 +67,8 @@ class Paper extends Component {
     return (
       <div className="Paper">
         <h1>Pencil Durability</h1>
-        <Pencil durabilityRating={this.state.durabilityRating} used={this.state.used} length={this.state.length} handleClick={this.sharpen}></Pencil>
+        <Pencil durabilityRating={this.state.durabilityRating} used={this.state.used}></Pencil>
+        <Sharpener length={this.state.length} handleClick={this.sharpen}></Sharpener>
         <textarea value={this.state.value} onChange={this.handleChange}></textarea>
       </div>
     );

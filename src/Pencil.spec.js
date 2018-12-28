@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {render, fireEvent} from 'react-testing-library';
+import {render} from 'react-testing-library';
 import Pencil from './Pencil';
 
 describe('pencil behavior', () => {
@@ -57,40 +57,5 @@ describe('pencil behavior', () => {
         const progress = container.querySelector('progress');
 
         expect(progress.getAttribute('value')).toEqual('0');
-    });
-
-    it('Clicking "sharpen" calls handler', async () => {
-        const mockHandleClick = jest.fn((e) => e);
-        const props = {
-            durabilityRating: 100, 
-            used: 99,
-            length: 10,
-            handleClick: mockHandleClick
-        };
-        const div = document.createElement('div');
-        const {container} = render(<Pencil {...props} />, div);
-
-        let sharpenButton = container.querySelector('button');
-        fireEvent.click(sharpenButton);
-      
-        expect(mockHandleClick).toHaveBeenCalledTimes(1);
-    });
-    
-    it('Disables ability to sharpen as length reached', async () => {
-        const div = document.createElement('div');
-
-        const {container} = render(<Pencil durabilityRating={4} used={4} length={0}/>, div);
-        let sharpenButton = container.querySelector('button');
-
-        expect(sharpenButton).toBeDisabled();
-    });
-
-    it('Enables ability to sharpen as length remaining', async () => {
-        const div = document.createElement('div');
-
-        const {container} = render(<Pencil durabilityRating={4} used={4} length={1}/>, div);
-        let sharpenButton = container.querySelector('button');
-
-        expect(sharpenButton).not.toBeDisabled();
     });
 });

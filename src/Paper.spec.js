@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {render, waitForElement, fireEvent} from 'react-testing-library';
 import getlorem from 'getlorem';
-import Chance from 'chance';
 import Paper from './Paper';
+import Pencil from './Pencil';
 
-const chance = new Chance();
+jest.mock('./Pencil', () => {
+  const Pencil = jest.fn(() => <div />);
+  return Pencil;
+});
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -113,37 +116,32 @@ it('Sharpens to orginal durabilityRating', async () => {
   const expectedDurabilityRatingAfterSharpen = durabilityRating * 2;
 
   const div = document.createElement('div');
-  const {container, getByTestId} = render(<Paper durabilityRating={durabilityRating}/>, div);
+  const {container} = render(<Paper durabilityRating={durabilityRating}/>, div);
 
   const textarea = container.querySelector('textarea');
   fireEvent.change(textarea, {target: {value: givenWriting}});
 
-  const progressBefore = await waitForElement(() =>
-    getByTestId('point-progress')
-  );
-  expect(progressBefore.getAttribute('value')).toEqual(String(durabilityRating - expectedUse));
+  expect(Pencil).toHaveBeenCalledWith({
+    durabilityRating,
+    used: expectedUse}, {});
 
   let sharpenButton = container.querySelector('button');
   fireEvent.click(sharpenButton);
 
-  const progressAfter = await waitForElement(() =>
-    getByTestId('point-progress')
-  );
-  expect(progressAfter.getAttribute('value')).toEqual(String(expectedDurabilityRatingAfterSharpen));
+  expect(Pencil).toHaveBeenCalledWith({
+    durabilityRating: expectedDurabilityRatingAfterSharpen,
+    used: 0}, {});
 });
 
+it('Sharpening reduces length by one', async () => {
+  const givenPencilLength = 1;
+  const div = document.createElement('div');
+   
+  const {container} = render(<Paper length={givenPencilLength}/>, div); 
+  const sharpenButton = container.querySelector('button');
+  fireEvent.click(sharpenButton);
 
-
-it('Sharpens until length reached', async () => {
-    const div = document.createElement('div');
-    const somePencilLength = chance.natural({min: 1, max: 5});
-    const arrayOfsomePencil = chance.n(chance.natural, somePencilLength);
-    
-    const {container} = render(<Paper length={somePencilLength}/>, div);
-    let sharpenButton = container.querySelector('button');
-    arrayOfsomePencil.forEach(() => fireEvent.click(sharpenButton));
-
-    expect(sharpenButton).toBeDisabled();
+  expect(sharpenButton).toBeDisabled();
 });
 
 it('Allows further writing after sharpening', async () => {
