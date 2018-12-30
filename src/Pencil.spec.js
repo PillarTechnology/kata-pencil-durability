@@ -12,37 +12,36 @@ jest.mock('./Eraser', () => {
 const mockHandleClick = jest.fn((e) => e);
 
 describe('Pencil behavior', () => {
-    let defaultProps = { handleClick: mockHandleClick };
+    let defaultProps,
+        renderDiv;
 
     beforeEach(() => {
         global.console = {error: jest.fn()}
+
+        defaultProps = { handleClick: mockHandleClick };
+        renderDiv = document.createElement('div');
       });
 
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        ReactDOM.render(<Pencil {...defaultProps}/>, div);
-        ReactDOM.unmountComponentAtNode(div);
+        ReactDOM.render(<Pencil {...defaultProps}/>, renderDiv);
+        ReactDOM.unmountComponentAtNode(renderDiv);
     });
 
     it('renders Eraser', () => {
-        const div = document.createElement('div');
-        render(<Pencil {...defaultProps}/>, div);
+        render(<Pencil {...defaultProps}/>, renderDiv);
 
         expect(Eraser).toHaveBeenCalledWith({
             handleClick: mockHandleClick}, {});
     });
 
     it('requires lead durability rating', () => {
-        const div = document.createElement('div');
-
-        render(<Pencil {...defaultProps} durabilityRating={100}/>, div);
+        render(<Pencil {...defaultProps} durabilityRating={100}/>, renderDiv);
 
         expect(console.error).toHaveBeenCalledTimes(0);
     });
 
     it('renders a dullable pencil', () => {
-        const div = document.createElement('div');
-        const {container} = render(<Pencil {...defaultProps}/>, div);
+        const {container} = render(<Pencil {...defaultProps}/>, renderDiv);
       
         const progresses = container.querySelectorAll('progress');
       
@@ -51,8 +50,7 @@ describe('Pencil behavior', () => {
       });
 
     it('renders the pencil unused by default', () => {
-        const div = document.createElement('div');
-        const {container} = render(<Pencil {...defaultProps}/>, div);
+        const {container} = render(<Pencil {...defaultProps}/>, renderDiv);
       
         const progress = container.querySelector('progress');
 
@@ -60,18 +58,14 @@ describe('Pencil behavior', () => {
     });
 
     it('cannot exceed specified durability', () => {
-        const div = document.createElement('div');
-
-        const {container} = render(<Pencil {...defaultProps} durabilityRating={4}/>, div);
+        const {container} = render(<Pencil {...defaultProps} durabilityRating={4}/>, renderDiv);
         const progress = container.querySelector('progress');
 
         expect(progress.getAttribute('max')).toEqual('4');
     });
 
     it('indicates dullness as used', () => {
-        const div = document.createElement('div');
-
-        const {container} = render(<Pencil {...defaultProps} durabilityRating={4} used={4}/>, div);
+        const {container} = render(<Pencil {...defaultProps} durabilityRating={4} used={4}/>, renderDiv);
         const progress = container.querySelector('progress');
 
         expect(progress.getAttribute('value')).toEqual('0');
