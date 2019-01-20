@@ -22,14 +22,21 @@ class Paper extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.erase = this.erase.bind(this);
+    this.sharpen = this.sharpen.bind(this);
   }
 
   degrade = (amountOfUse) => this.setState({used: amountOfUse});
-  sharpen = (e) => this.setState({
+  sharpen = (e) => {
+    this.setState({
     used: 0,
     durabilityRating: this.state.durabilityRating + this.state.baseDurabilityRating,
     length: this.state.length - 1
   });
+}
+  erase = (e, f) => {
+    console.log('ERASE');
+  }
   getWeight = (char) => char === char.toLowerCase() ? this.LOWER_CASE_WEIGHT : this.UPPER_CASE_WEIGHT;
   
   measureWriting = (ix) => {
@@ -67,9 +74,19 @@ class Paper extends Component {
     return (
       <div className="Paper">
         <h1>Pencil Durability</h1>
-        <Pencil durabilityRating={this.state.durabilityRating} used={this.state.used}></Pencil>
-        <Sharpener length={this.state.length} handleClick={this.sharpen}></Sharpener>
-        <textarea value={this.state.value} onChange={this.handleChange}></textarea>
+
+        <Pencil durabilityRating={this.state.durabilityRating} 
+            handleClick={this.erase}
+            used={this.state.used}>
+        </Pencil>
+
+        <Sharpener length={this.state.length}
+            handleClick={this.sharpen}>
+        </Sharpener>
+
+        <textarea value={this.state.value}
+          onChange={this.handleChange}>
+        </textarea>
       </div>
     );
   }

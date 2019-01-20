@@ -5,12 +5,18 @@ import getlorem from 'getlorem';
 import Paper from './Paper';
 import Pencil from './Pencil';
 
+
 jest.mock('./Pencil', () => {
-  const Pencil = jest.fn(() => <div />);
+  const Pencil = jest.fn((props) => <div onClick={props.handleClick}>Pencil</div>);
   return Pencil;
 });
 
 describe('Paper behavior', () => {
+
+  beforeEach(() => {
+    Pencil.mockClear();
+  });
+
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<Paper />, div);
@@ -124,6 +130,7 @@ describe('Paper behavior', () => {
 
     expect(Pencil).toHaveBeenCalledWith({
       durabilityRating,
+      handleClick: expect.any(Function),  
       used: expectedUse}, {});
 
     let sharpenButton = container.querySelector('button');
@@ -131,6 +138,7 @@ describe('Paper behavior', () => {
 
     expect(Pencil).toHaveBeenCalledWith({
       durabilityRating: expectedDurabilityRatingAfterSharpen,
+      handleClick: expect.any(Function),  
       used: 0}, {});
   });
 
@@ -138,11 +146,14 @@ describe('Paper behavior', () => {
     const givenPencilLength = 1;
     const div = document.createElement('div');
     
-    const {container} = render(<Paper length={givenPencilLength}/>, div); 
+    const {container, getByText} = render(<Paper length={givenPencilLength}/>, div); 
     const sharpenButton = container.querySelector('button');
     fireEvent.click(sharpenButton);
 
-    expect(sharpenButton).toBeDisabled();
+    const maybeDisabledButton = await waitForElement(() =>
+      getByText('Sharpen')
+    );
+    expect(maybeDisabledButton.disabled).toBeTruthy();
   });
 
   it('Allows further writing after sharpening', async () => {
@@ -160,10 +171,8 @@ describe('Paper behavior', () => {
 
     fireEvent.change(textarea, {target: {value: expectedWriting}});
 
-
     await waitForElement(() =>
       getByText(expectedWriting, {collapseWhitespace: false, trim: false})
     );
   });
-
 });
