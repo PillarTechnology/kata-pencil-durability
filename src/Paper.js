@@ -35,7 +35,13 @@ class Paper extends Component {
   });
 }
   erase = (e, f) => {
-    console.log('ERASE');
+    const start = this.state.value.lastIndexOf(f)
+    const spaces = f.split('').map((char) => ' ').reduce((s, acc) => acc.concat(s));
+    const textPrefix = this.state.value.substr(0, start);
+    const textSuffix = this.state.value.substr(start + f.length, this.state.value.length);
+    const textWithErased = textPrefix + spaces + textSuffix;
+    
+    this.setState({value: textWithErased});
   }
   getWeight = (char) => char === char.toLowerCase() ? this.LOWER_CASE_WEIGHT : this.UPPER_CASE_WEIGHT;
   

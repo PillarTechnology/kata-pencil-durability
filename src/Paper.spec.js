@@ -5,14 +5,17 @@ import getlorem from 'getlorem';
 import Paper from './Paper';
 import Pencil from './Pencil';
 
-
 jest.mock('./Pencil', () => {
-  const Pencil = jest.fn((props) => <div onClick={props.handleClick}>Pencil</div>);
+  const Pencil = jest.fn((props) => <div 
+    data-used={props.used}
+    onClick={props.handleClick}
+    data-durability-rating={props.durabilityRating}>
+    Pencil</div>);
+
   return Pencil;
 });
 
 describe('Paper behavior', () => {
-
   beforeEach(() => {
     Pencil.mockClear();
   });
@@ -175,4 +178,35 @@ describe('Paper behavior', () => {
       getByText(expectedWriting, {collapseWhitespace: false, trim: false})
     );
   });
+
+
+  it('Replaces last occurance of erased content with it\'s length in spaces', async () => {
+    const givenWriting = 'How much wood would a woodchuck chuck if a woodchuck could chuck wood?';
+    const erasedWriting = 'chuck';
+    const expectedWriting = 'How much wood would a woodchuck chuck if a woodchuck could       wood?';
+    const div = document.createElement('div');
+    
+    const {container, getByText} = render(<Paper durabilityRating={givenWriting.length}/>, div);
+
+    const textarea = container.querySelector('textarea');
+    fireEvent.change(textarea, {target: {value: givenWriting}});
+    const textAreaFound = await waitForElement(() =>
+      getByText(givenWriting)
+    );
+    expect(textAreaFound.value).toHaveLength(givenWriting.length);
+
+    const evt = new MouseEvent("click", {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+      clientX: 20
+    });
+
+    Pencil.mock.calls[0][0].handleClick(evt, erasedWriting);
+
+    await waitForElement(() =>
+      getByText(expectedWriting, {collapseWhitespace: false})
+    );
+  });
+
 });
