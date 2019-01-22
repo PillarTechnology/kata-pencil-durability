@@ -209,4 +209,24 @@ describe('Paper behavior', () => {
     );
   });
 
+  it('Edits on top of erased content', async () => {
+    const givenWriting = 'An       a day keeps the doctor away';
+    const expectedWriting = 'An onion a day keeps the doctor away';
+
+    const div = document.createElement('div');
+    
+    const {container, getByText} = render(<Paper durabilityRating={givenWriting.length}/>, div);
+
+    const textarea = container.querySelector('textarea');
+    fireEvent.change(textarea, {target: {value: givenWriting}});
+    await waitForElement(() =>
+      getByText(givenWriting, {collapseWhitespace: false})
+    );
+
+    fireEvent.change(textarea, {target: {value: expectedWriting}});
+    await waitForElement(() =>
+      getByText(expectedWriting)
+    );
+  });
+
 });
