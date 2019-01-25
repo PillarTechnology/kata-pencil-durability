@@ -76,8 +76,8 @@ describe('Paper behavior', () => {
   });
 
   it('renders only space characters when pencil used up by lowercase letters', async () => {
-    const givenWriting = 'pqwxy';
-    const expectedWriting = 'pqwx ';
+    const givenWriting = 'pq wxy';
+    const expectedWriting = 'pq wx ';
     const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 

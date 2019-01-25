@@ -57,7 +57,7 @@ class Paper extends Component {
     return {degradedIndex: i, numUsedChars};
   };
 
-  hasNeutralChars = (ix) => this.state.durabilityRating > ix;
+  hasNeutralChars = (ix) => this.state.durabilityRating >= ix;
 
   adjustWriting = (ix, base) => {
     const valueSubString = base.slice(0, ix + 1)
