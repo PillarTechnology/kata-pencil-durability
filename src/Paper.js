@@ -80,13 +80,16 @@ class Paper extends Component {
     }
   
     const prefix = charArray.reduce((acc, cur, idx) => {
-      const next = charArrayNext[idx];
+      const editCollisionSymbol = '@',
+            next = charArrayNext[idx];
       doUnshift(idx, next);
       const nextWithShift = charArrayNext[idx];
       charUnshiftCnt = charUnshiftCnt+=getIncrementAmount(cur, nextWithShift);
 
+
+      const isEditCollision = () => !isSpaceChar(cur) && cur !== nextWithShift;
       return nextWithShift ? 
-          !isSpaceChar(cur) && cur !== nextWithShift ? acc.concat('@') : acc.concat(nextWithShift) 
+        isEditCollision() ? acc.concat(editCollisionSymbol) : acc.concat(nextWithShift) 
           : acc.concat(cur);
     });
 
