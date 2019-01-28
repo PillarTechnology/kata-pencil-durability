@@ -16,18 +16,18 @@ jest.mock('./Pencil', () => {
 });
 
 describe('Paper behavior', () => {
+  let div;
   beforeEach(() => {
+    div = document.createElement('div');
     Pencil.mockClear();
   });
 
   it('renders without crashing', () => {
-    const div = document.createElement('div');
     ReactDOM.render(<Paper />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
   it('renders the heading', () => {
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 
     expect(container.querySelector('h1')).toBeInTheDocument();
@@ -35,7 +35,6 @@ describe('Paper behavior', () => {
   });
 
   it('renders the writing recorder', () => {
-    const div = document.createElement('div');
     const {container} = render(<Paper />, div);
 
     const textareas = container.querySelectorAll('textarea');
@@ -47,7 +46,6 @@ describe('Paper behavior', () => {
 
   it('records writing', async () => {
     const expectedWriting = getlorem.words(5);
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 
     let textarea = container.querySelector('textarea');
@@ -62,7 +60,6 @@ describe('Paper behavior', () => {
     const existingWriting = getlorem.sentences(5);
     const newWriting = getlorem.words(5);
     const expectedWriting = existingWriting + newWriting
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper durabilityRating={expectedWriting.length}/>, div);
 
     let textarea = container.querySelector('textarea');
@@ -78,7 +75,6 @@ describe('Paper behavior', () => {
   it('renders only space characters when pencil used up by lowercase letters', async () => {
     const givenWriting = 'pq wxy';
     const expectedWriting = 'pq wx ';
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 
     let textarea = container.querySelector('textarea');
@@ -92,7 +88,6 @@ describe('Paper behavior', () => {
   it('renders only space characters when pencil used up by uppercase letters', async () => {
     const givenWriting = 'PQW';
     const expectedWriting = 'PQ ';
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 
     let textarea = container.querySelector('textarea');
@@ -108,7 +103,6 @@ describe('Paper behavior', () => {
     x y`;
     const expectedWriting = `vw  
     x y`;
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 
     let textarea = container.querySelector('textarea');
@@ -125,7 +119,6 @@ describe('Paper behavior', () => {
     const durabilityRating = 50;
     const expectedDurabilityRatingAfterSharpen = durabilityRating * 2;
 
-    const div = document.createElement('div');
     const {container} = render(<Paper durabilityRating={durabilityRating}/>, div);
 
     const textarea = container.querySelector('textarea');
@@ -147,7 +140,6 @@ describe('Paper behavior', () => {
 
   it('Sharpening reduces length by one', async () => {
     const givenPencilLength = 1;
-    const div = document.createElement('div');
     
     const {container, getByText} = render(<Paper length={givenPencilLength}/>, div); 
     const sharpenButton = container.querySelector('button');
@@ -163,7 +155,6 @@ describe('Paper behavior', () => {
     const givenWriting = 'abcde';
     const expectedWriting = 'abcdefgh';
 
-    const div = document.createElement('div');
     const {container, getByText} = render(<Paper />, div);
 
     const textarea = container.querySelector('textarea');
@@ -184,7 +175,6 @@ describe('Paper behavior', () => {
     const givenWriting = 'How much wood would a woodchuck chuck if a woodchuck could chuck wood?';
     const erasedWriting = 'chuck';
     const expectedWriting = 'How much wood would a woodchuck chuck if a woodchuck could       wood?';
-    const div = document.createElement('div');
     
     const {container, getByText} = render(<Paper durabilityRating={givenWriting.length}/>, div);
 
@@ -215,8 +205,6 @@ describe('Paper behavior', () => {
     const givenEdit = `An onion${spacesRepresentingTextAreaPreseveSpaceInsertBehavior} a day keeps the doctor away`;
     const expectedWriting = 'An onion a day keeps the doctor away';
 
-    const div = document.createElement('div');
-    
     const {container, getByText} = render(<Paper durabilityRating={givenWriting.length}/>, div);
 
     const textarea = container.querySelector('textarea');
@@ -237,8 +225,6 @@ describe('Paper behavior', () => {
     const givenWEdited = `An artichoke${spacesRepresentingTextAreaPreseveSpaceInsertBehavior} a day keeps the doctor away`;
     const expectedWriting = 'An artich@k@ay keeps the doctor away';
 
-    const div = document.createElement('div');
-    
     const {container, getByText} = render(<Paper durabilityRating={givenWEdited.length}/>, div);
 
     const textarea = container.querySelector('textarea');
