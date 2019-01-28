@@ -59,34 +59,41 @@ class Paper extends Component {
 
   hasNeutralChars = (ix) => this.state.durabilityRating >= ix;
 
-  diff = (raw) => {
-    const charArray = this.state.value.trim().split('');
-    const charArrayNext = raw.split('');
+  diffAndPreventEditShift = (raw) => {
+    const isSpaceChar = (c) => /\s/.test(c),
+          charArray = this.state.value.trim().split(''),
+          charArrayNext = raw.split('');
+    let charUnshiftCnt = 0;
+
     if(charArray.length < 1) return raw;
 
-    function getIncrementAmount(current, maybeNext) {
-      return maybeNext && ((/\s/.test(current) && !/\s/.test(maybeNext)) ||
-                          (!/\s/.test(current) && current !== maybeNext)) ? 1 : 0;
+    const getIncrementAmount = (current, next) => {
+      return next && ((isSpaceChar(current) && !isSpaceChar(next)) ||
+                          (!isSpaceChar(current) && current !== next)) ? 1 : 0;
+    }
+    const shouldDoUnshift = (next) => next && isSpaceChar(next) && charUnshiftCnt > 0;
+    const doUnshift = (idx, next) => {
+      if(shouldDoUnshift(next)) {
+        charArrayNext.splice(idx, charUnshiftCnt);
+        charUnshiftCnt = 0;
+      }
     }
   
-    let charShiftCnt = 0;
     const prefix = charArray.reduce((acc, cur, idx) => {
       const next = charArrayNext[idx];
-      if(next && /\s/.test(next) && charShiftCnt > 0) {
-        charArrayNext.splice(idx, charShiftCnt);
-        charShiftCnt = 0;
-      }
+      doUnshift(idx, next);
       const nextWithShift = charArrayNext[idx];
-      charShiftCnt = charShiftCnt+=getIncrementAmount(cur, nextWithShift);
+      charUnshiftCnt = charUnshiftCnt+=getIncrementAmount(cur, nextWithShift);
+
       return nextWithShift ? 
-          !/\s/.test(cur) && cur !== nextWithShift ? acc.concat('@') : acc.concat(nextWithShift) 
+          !isSpaceChar(cur) && cur !== nextWithShift ? acc.concat('@') : acc.concat(nextWithShift) 
           : acc.concat(cur);
     });
 
     const suffix = charArrayNext.join('').substr(charArray.length, charArrayNext.length - 1);
-    const full = prefix.concat(suffix);
-    return full;
+    return prefix.concat(suffix);
   }
+
   adjustWriting = (ix, raw) => {
     const valueSubString = raw.slice(0, ix + 1)
     return valueSubString.padEnd(raw.length);
@@ -97,12 +104,12 @@ class Paper extends Component {
     const writingInfo = this.measureWriting(raw);
     this.degrade(writingInfo.numUsedChars);
 
-   const withCollisions = this.diff(raw);
+   const rawWithUnshift = this.diffAndPreventEditShift(raw);
 
     this.setState(
       {
         value: this.hasNeutralChars(writingInfo.degradedIndex) ? 
-                this.adjustWriting(writingInfo.degradedIndex, withCollisions) : withCollisions
+                this.adjustWriting(writingInfo.degradedIndex, rawWithUnshift) : rawWithUnshift
       });
   }
 
