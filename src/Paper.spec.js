@@ -71,7 +71,7 @@ describe('Paper behavior', () => {
     fireEvent.change(textarea, {target: {value: expectedWriting}});
 
     await waitForElement(() =>
-      getByText(expectedWriting)
+      getByText(expectedWriting, {collapseWhitespace: false})
     );
   });
 
@@ -210,7 +210,9 @@ describe('Paper behavior', () => {
   });
 
   it('Edits on top of erased content', async () => {
+    const spacesRepresentingTextAreaPreseveSpaceInsertBehavior = '     ';
     const givenWriting = 'An       a day keeps the doctor away';
+    const givenEdit = `An onion${spacesRepresentingTextAreaPreseveSpaceInsertBehavior} a day keeps the doctor away`;
     const expectedWriting = 'An onion a day keeps the doctor away';
 
     const div = document.createElement('div');
@@ -223,10 +225,32 @@ describe('Paper behavior', () => {
       getByText(givenWriting, {collapseWhitespace: false})
     );
 
-    fireEvent.change(textarea, {target: {value: expectedWriting}});
+    fireEvent.change(textarea, {target: {value: givenEdit}});
     await waitForElement(() =>
       getByText(expectedWriting)
     );
   });
 
+  it('Replaces edit collisions with "at signs"', async () => {
+    const givenWriting = 'An       a day keeps the doctor away';
+    const spacesRepresentingTextAreaPreseveSpaceInsertBehavior = '     ';
+    const givenWEdited = `An artichoke${spacesRepresentingTextAreaPreseveSpaceInsertBehavior} a day keeps the doctor away`;
+    const expectedWriting = 'An artich@k@ay keeps the doctor away';
+
+    const div = document.createElement('div');
+    
+    const {container, getByText} = render(<Paper durabilityRating={givenWEdited.length}/>, div);
+
+    const textarea = container.querySelector('textarea');
+    
+    fireEvent.change(textarea, {target: {value: givenWriting}});
+    await waitForElement(() =>
+      getByText(givenWriting, {collapseWhitespace: false})
+    );
+
+    fireEvent.change(textarea, {target: {value: givenWEdited}});
+    await waitForElement(() =>
+      getByText(expectedWriting)
+    );
+  });
 });
