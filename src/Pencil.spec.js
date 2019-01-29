@@ -21,7 +21,7 @@ describe('Pencil behavior', () => {
         defaultProps = { 
             handleClick: mockHandleClick,
             durabilityRating: 100,
-            used: 1
+            used: 0
         };
         renderDiv = document.createElement('div');
       });
@@ -42,7 +42,7 @@ describe('Pencil behavior', () => {
         delete defaultProps.durabilityRating
         render(<Pencil {...defaultProps} />, renderDiv);
 
-        expect(console.error).toHaveBeenCalledTimes(2);
+        expect(console.error).toHaveBeenCalledTimes(1);
     });
 
     it('requires used count', () => {
@@ -66,7 +66,7 @@ describe('Pencil behavior', () => {
       
         const progress = container.querySelector('progress');
 
-        expect(progress.getAttribute('value')).toEqual('99');
+        expect(progress.getAttribute('value')).toEqual('100');
     });
 
     it('cannot exceed specified durability', () => {
