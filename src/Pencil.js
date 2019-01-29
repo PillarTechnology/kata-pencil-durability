@@ -11,10 +11,6 @@ const Pencil = ({durabilityRating, used, handleClick}) => {
 };
 export default Pencil;
  
-Pencil.defaultProps = {
-    durabilityRating: 100
-};
-
 Pencil.propTypes = {
     durabilityRating: PropTypes.number.isRequired,
     handleClick: PropTypes.func.isRequired,

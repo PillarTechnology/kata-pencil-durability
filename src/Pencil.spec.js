@@ -7,18 +7,22 @@ import Eraser from './Eraser';
 jest.mock('./Eraser', () => {
     const Eraser = jest.fn(() => <div />);
     return Eraser;
-  });
+});
 
 const mockHandleClick = jest.fn((e) => e);
+global.console = {error: jest.fn()}
 
 describe('Pencil behavior', () => {
     let defaultProps,
-        renderDiv;
-
+    renderDiv;
+    
     beforeEach(() => {
-        global.console = {error: jest.fn()}
-
-        defaultProps = { handleClick: mockHandleClick };
+       console.error.mockClear();
+        defaultProps = { 
+            handleClick: mockHandleClick,
+            durabilityRating: 100,
+            used: 1
+        };
         renderDiv = document.createElement('div');
       });
 
@@ -35,9 +39,17 @@ describe('Pencil behavior', () => {
     });
 
     it('requires lead durability rating', () => {
-        render(<Pencil {...defaultProps} durabilityRating={100}/>, renderDiv);
+        delete defaultProps.durabilityRating
+        render(<Pencil {...defaultProps} />, renderDiv);
 
-        expect(console.error).toHaveBeenCalledTimes(0);
+        expect(console.error).toHaveBeenCalledTimes(2);
+    });
+
+    it('requires used count', () => {
+        delete defaultProps.used
+        render(<Pencil {...defaultProps} />, renderDiv);
+
+        expect(console.error).toHaveBeenCalledTimes(1);
     });
 
     it('renders a dullable pencil', () => {
@@ -54,18 +66,21 @@ describe('Pencil behavior', () => {
       
         const progress = container.querySelector('progress');
 
-        expect(progress.getAttribute('value')).toEqual('100');
+        expect(progress.getAttribute('value')).toEqual('99');
     });
 
     it('cannot exceed specified durability', () => {
-        const {container} = render(<Pencil {...defaultProps} durabilityRating={4}/>, renderDiv);
+        defaultProps.durabilityRating = 4;
+        const {container} = render(<Pencil {...defaultProps}/>, renderDiv);
         const progress = container.querySelector('progress');
 
         expect(progress.getAttribute('max')).toEqual('4');
     });
 
     it('indicates dullness as used', () => {
-        const {container} = render(<Pencil {...defaultProps} durabilityRating={4} used={4}/>, renderDiv);
+        defaultProps.durabilityRating = 4;
+        defaultProps.used = 4;
+        const {container} = render(<Pencil {...defaultProps}/>, renderDiv);
         const progress = container.querySelector('progress');
 
         expect(progress.getAttribute('value')).toEqual('0');
