@@ -24,29 +24,31 @@ class Paper extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.erase = this.erase.bind(this);
     this.sharpen = this.sharpen.bind(this);
+    this.getWritingInfo = this.getWritingInfo.bind(this);
   }
 
   degrade = (amountOfUse) => this.setState({used: amountOfUse});
+
   sharpen = (e) => {
     this.setState({
-    used: 0,
-    durabilityRating: this.state.durabilityRating + this.state.baseDurabilityRating,
-    length: this.state.length - 1
+      used: 0,
+      durabilityRating: this.state.durabilityRating + this.state.baseDurabilityRating,
+      length: this.state.length - 1
   });
 }
   erase = (e, f) => {
     const start = this.state.value.lastIndexOf(f)
     const spaces = f.split('').map((char) => ' ').reduce((s, acc) => acc.concat(s));
-    const textPrefix = this.state.value.substr(0, start);
-    const textSuffix = this.state.value.substr(start + f.length, this.state.value.length);
-    const textWithErased = textPrefix + spaces + textSuffix;
+    const prefix = this.state.value.substr(0, start);
+    const suffix = this.state.value.substr(start + f.length, this.state.value.length);
+    const writingWithErased = prefix + spaces + suffix;
     
-    this.setState({value: textWithErased});
+    this.setState({value: writingWithErased});
   }
   getWeight = (char) => char === char.toLowerCase() ? this.LOWER_CASE_WEIGHT : this.UPPER_CASE_WEIGHT;
-  
-  measureWriting = (ix) => {
-    const charArray = ix.split('');
+
+  getWritingInfo = (rawWriting) => {
+    const charArray = rawWriting.split('');
     let numUsedChars = 0, i = 0;
     for (i = 0; i < charArray.length; i++) {
       numUsedChars = /\s/.test(charArray[i]) ? numUsedChars : numUsedChars += this.getWeight(charArray[i]);
@@ -54,10 +56,8 @@ class Paper extends Component {
         break;
       }
     }
-    return {degradedIndex: i, numUsedChars};
+    return {zeroDurablityIdx: i, numUsedChars};
   };
-
-  hasNeutralChars = (ix) => this.state.durabilityRating >= ix;
 
   diffAndPreventEditShift = (raw) => {
     const isSpaceChar = (c) => /\s/.test(c),
@@ -97,22 +97,21 @@ class Paper extends Component {
     return prefix.concat(suffix);
   }
 
-  adjustWriting = (ix, raw) => {
-    const valueSubString = raw.slice(0, ix + 1)
-    return valueSubString.padEnd(raw.length);
+  getWritingWithPencilDurabilityEnforced = (ix, writing) => {
+    const valueSubString = writing.slice(0, ix + 1)
+    return valueSubString.padEnd(writing.length);
   };
 
   handleChange(event) {
     const raw = event.target.value;
-    const writingInfo = this.measureWriting(raw);
+    const writingInfo = this.getWritingInfo(raw);
     this.degrade(writingInfo.numUsedChars);
 
-   const rawWithUnshift = this.diffAndPreventEditShift(raw);
+    const rawWithUnshift = this.diffAndPreventEditShift(raw);
 
     this.setState(
       {
-        value: this.hasNeutralChars(writingInfo.degradedIndex) ? 
-                this.adjustWriting(writingInfo.degradedIndex, rawWithUnshift) : rawWithUnshift
+        value: this.getWritingWithPencilDurabilityEnforced(writingInfo.zeroDurablityIdx, rawWithUnshift)
       });
   }
 
