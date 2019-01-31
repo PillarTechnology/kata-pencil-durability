@@ -126,6 +126,7 @@ describe('Paper behavior', () => {
 
     expect(Pencil).toHaveBeenCalledWith({
       durabilityRating,
+      eraserDurabilityRating: durabilityRating,
       handleClick: expect.any(Function),  
       used: expectedUse}, {});
 
@@ -134,6 +135,7 @@ describe('Paper behavior', () => {
 
     expect(Pencil).toHaveBeenCalledWith({
       durabilityRating: expectedDurabilityRatingAfterSharpen,
+      eraserDurabilityRating: expectedDurabilityRatingAfterSharpen,
       handleClick: expect.any(Function),  
       used: 0}, {});
   });

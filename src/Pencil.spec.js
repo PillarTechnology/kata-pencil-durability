@@ -21,6 +21,7 @@ describe('Pencil behavior', () => {
         defaultProps = { 
             handleClick: mockHandleClick,
             durabilityRating: 100,
+            eraserDurabilityRating: 100,
             used: 0
         };
         renderDiv = document.createElement('div');
@@ -35,11 +36,19 @@ describe('Pencil behavior', () => {
         render(<Pencil {...defaultProps}/>, renderDiv);
 
         expect(Eraser).toHaveBeenCalledWith({
-            handleClick: mockHandleClick}, {});
+            handleClick: mockHandleClick,
+            durabilityRating: 100}, {});
     });
 
     it('requires lead durability rating', () => {
         delete defaultProps.durabilityRating
+        render(<Pencil {...defaultProps} />, renderDiv);
+
+        expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    it('requires eraser durability rating', () => {
+        delete defaultProps.eraserDurabilityRating
         render(<Pencil {...defaultProps} />, renderDiv);
 
         expect(console.error).toHaveBeenCalledTimes(1);

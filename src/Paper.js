@@ -120,7 +120,8 @@ class Paper extends Component {
       <div className="Paper">
         <h1>Pencil Durability</h1>
 
-        <Pencil durabilityRating={this.state.durabilityRating} 
+        <Pencil durabilityRating={this.state.durabilityRating}
+            eraserDurabilityRating={this.state.durabilityRating}
             handleClick={this.erase}
             used={this.state.used}>
         </Pencil>
