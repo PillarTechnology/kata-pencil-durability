@@ -5,7 +5,7 @@ class Eraser extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: '', used: 0};
 
         this.erase = this.erase.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -13,7 +13,7 @@ class Eraser extends Component {
 
     erase = (e) => {
         this.props.handleClick(e, this.state.value);
-        this.setState({value: ''});
+        this.setState({value: '', used: this.state.used + this.state.value.length});
     };
 
     handleChange(e) {
@@ -24,7 +24,7 @@ class Eraser extends Component {
         return (
             <React.Fragment>
                 <input value={this.state.value} onChange={this.handleChange}></input>
-                <button onClick={this.erase} disabled={this.props.used >= this.props.durabilityRating ? true : false}>Erase</button>
+                <button onClick={this.erase} disabled={this.state.used >= this.props.durabilityRating ? true : false}>Erase</button>
             </React.Fragment>
         );
       }
@@ -35,5 +35,4 @@ export default Eraser;
 Eraser.propTypes = {
     durabilityRating: PropTypes.number.isRequired,
     handleClick: PropTypes.func.isRequired,
-    used: PropTypes.number.isRequired
 };

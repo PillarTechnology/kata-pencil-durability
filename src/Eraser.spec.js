@@ -14,8 +14,7 @@ describe('Eraser behavior', () => {
         console.error.mockClear();
         defaultProps = {
             handleClick: mockHandleClick,
-            durabilityRating: 100,
-            used: 0
+            durabilityRating: 100
         };
         renderDiv = document.createElement('div');
       });
@@ -32,17 +31,18 @@ describe('Eraser behavior', () => {
         expect(console.error).toHaveBeenCalledTimes(1);
     });
 
-    it('requires used count', () => {
-        delete defaultProps.used
-        render(<Eraser {...defaultProps} />, renderDiv);
+    it('renders eraser enabled', () => {
+        const {container} = render(<Eraser {...defaultProps} />, renderDiv);
 
-        expect(console.error).toHaveBeenCalledTimes(1);
+        const eraserButton = container.querySelector('button');
+
+        expect(eraserButton).not.toBeDisabled();
     });
     
     it('Clicking "erase" calls handler', async () => {
         const {container} = render(<Eraser {...defaultProps} />, renderDiv);
 
-        let eraseButton = container.querySelector('button');
+        const eraseButton = container.querySelector('button');
         fireEvent.click(eraseButton);
     
         expect(mockHandleClick).toHaveBeenCalledTimes(1);
@@ -52,36 +52,43 @@ describe('Eraser behavior', () => {
         const givenEraseVal = getlorem.words(1);
         const {container} = render(<Eraser {...defaultProps} />, renderDiv);
 
-        let textInput = container.querySelector('input');
+        const textInput = container.querySelector('input');
         fireEvent.change(textInput, {target: {value: givenEraseVal}});
 
         expect(textInput.value).toBe(givenEraseVal);
 
-        let eraseButton = container.querySelector('button');
+        const eraseButton = container.querySelector('button');
         fireEvent.click(eraseButton);
     
         expect(mockHandleClick).toHaveBeenCalledWith(expect.any(Object), givenEraseVal);
     });
 
     it('Clicking "erase" clears input text', async () => {
+        const givenWriting = getlorem.words(1);
         const {container} = render(<Eraser {...defaultProps} />, renderDiv);
 
-        let textInput = container.querySelector('input');
-        fireEvent.change(textInput, {target: {value: getlorem.words(1)}});
+        const textInput = container.querySelector('input');
+        fireEvent.change(textInput, {target: {value: givenWriting}});
 
-        let eraseButton = container.querySelector('button');
+        expect(textInput.getAttribute('value')).toEqual(givenWriting);
+
+        const eraseButton = container.querySelector('button');
         fireEvent.click(eraseButton);
     
         expect(textInput.getAttribute('value')).toEqual('');
     });
 
-    it('Disables ability to erase as remaining durability reaches zero', async () => {
-        defaultProps.used = 100;
+    it('Disables ability to erase as remaining durability becomes zero', async () => {
+        defaultProps.durabilityRating = 5;
+        const writingToErase = '12345';
         const {container} = render(<Eraser {...defaultProps}/>, renderDiv);
-        
-        let eraserButton = container.querySelector('button');
+
+        const textInput = container.querySelector('input');
+        fireEvent.change(textInput, {target: {value: writingToErase}});
+
+        const eraserButton = container.querySelector('button');
+        fireEvent.click(eraserButton);
 
         expect(eraserButton).toBeDisabled();
     });
-
 });
