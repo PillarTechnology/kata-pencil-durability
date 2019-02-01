@@ -15,7 +15,7 @@ class Eraser extends Component {
         const eraseLength = this.state.value.split('').filter((c) => !/\s/.test(c)).length;
         if(this.state.value && eraseLength > 0) {
             this.props.handleClick(e, this.state.value);
-            this.setState({value: '', used: this.state.used + this.state.value.length});
+            this.setState({value: '', used: this.state.used + eraseLength});
         }
     };
 

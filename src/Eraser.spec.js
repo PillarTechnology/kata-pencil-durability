@@ -92,4 +92,19 @@ describe('Eraser behavior', () => {
 
         expect(eraserButton).toBeDisabled();
     });
+
+    it('Degrades eraser by one per erased non white space character', () => {
+        defaultProps.durabilityRating = 3;
+        const {container} = render(<Eraser {...defaultProps} />, renderDiv);
+        
+        let eraserButton = container.querySelector('button');
+        
+        let textInput = container.querySelector('input');
+        fireEvent.change(textInput, {target: {value: 'a   '}});
+
+        let eraseButton = container.querySelector('button');
+        fireEvent.click(eraseButton);
+
+        expect(eraserButton).not.toBeDisabled();
+    });
 });
