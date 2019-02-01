@@ -12,6 +12,7 @@ describe('Eraser behavior', () => {
 
     beforeEach(() => {
         console.error.mockClear();
+        mockHandleClick.mockClear();
         defaultProps = {
             handleClick: mockHandleClick,
             durabilityRating: 100
@@ -39,13 +40,13 @@ describe('Eraser behavior', () => {
         expect(eraserButton).not.toBeDisabled();
     });
     
-    it('Clicking "erase" calls handler', async () => {
-        const {container} = render(<Eraser {...defaultProps} />, renderDiv);
+    it('Handles attempts to erase nothing gracefully', () => {
+        const {container} = render(<Eraser {...defaultProps}/>, renderDiv);
 
-        const eraseButton = container.querySelector('button');
-        fireEvent.click(eraseButton);
-    
-        expect(mockHandleClick).toHaveBeenCalledTimes(1);
+        const eraserButton = container.querySelector('button');
+        fireEvent.click(eraserButton);
+
+        expect(mockHandleClick).not.toHaveBeenCalled();
     });
 
     it('Clicking "erase" calls handler with input text', async () => {
