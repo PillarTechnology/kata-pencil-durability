@@ -108,7 +108,7 @@ describe('Eraser behavior', () => {
         expect(eraserButton).not.toBeDisabled();
     });
 
-      it('Clicking "erase" calls handler with truncated input text when durability exceeded', async () => {
+    it('Clicking "erase" calls handler with truncated input text when durability exceeded', async () => {
         defaultProps.durabilityRating = 4;
         const givenEraseVal = '12 345';
         const {container} = render(<Eraser {...defaultProps} />, renderDiv);
@@ -119,6 +119,19 @@ describe('Eraser behavior', () => {
         let eraseButton = container.querySelector('button');
         fireEvent.click(eraseButton);
     
-        expect(mockHandleClick).toHaveBeenCalledWith(expect.any(Object), '12 34');
+        expect(mockHandleClick).toHaveBeenCalledWith(expect.any(Object), '2 345');
+    });
+
+
+    it('Erases starting from opposite direction of writing', () => {
+        const givenWritingToErase = 'Bill';
+        defaultProps.durabilityRating = givenWritingToErase.length - 1;
+        const expectedWritingToErase = 'ill';
+        const {container} = render(<Eraser {...defaultProps} />, renderDiv);
+
+        let textInput = container.querySelector('input');
+        fireEvent.change(textInput, {target: {value: givenWritingToErase}});
+
+        expect(textInput.getAttribute('value')).toEqual(expectedWritingToErase);
     });
 });

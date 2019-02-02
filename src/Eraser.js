@@ -20,7 +20,7 @@ class Eraser extends Component {
               src.splice(idx, src.length - idx);
               return idx;
             }
-            if(idx === src.length) {
+            if(idx === src.length - 1) {
               return idx;
             }
             return total;
@@ -38,7 +38,7 @@ class Eraser extends Component {
     handleChange(e) {
         const writingToErase = e.target.value;
         const idx = this.determineZeroDurabilityIndex(writingToErase);
-        const maybeTruncatedVal = writingToErase.substring(0, idx + 1);
+        const maybeTruncatedVal = writingToErase.substring(e.target.value.length - idx - 1, e.target.value.length);
         this.setState({value: maybeTruncatedVal});
     }
 
