@@ -4,7 +4,7 @@ import './index.css';
 import Paper from './Paper';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Paper />, document.getElementById('root'));
+ReactDOM.render(<Paper eraserDurabilityRating={3}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

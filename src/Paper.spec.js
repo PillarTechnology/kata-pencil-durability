@@ -116,17 +116,18 @@ describe('Paper behavior', () => {
   it('Sharpens to orginal durabilityRating', async () => {
     const givenWriting = getlorem.words(1).toLowerCase();
     const expectedUse = givenWriting.length;
-    const durabilityRating = 50;
+    const durabilityRating = 50, eraserDurabilityRating = 50;
     const expectedDurabilityRatingAfterSharpen = durabilityRating * 2;
 
-    const {container} = render(<Paper durabilityRating={durabilityRating}/>, div);
+    const {container} = render(<Paper durabilityRating={durabilityRating} 
+      eraserDurabilityRating={eraserDurabilityRating}/>, div);
 
     const textarea = container.querySelector('textarea');
     fireEvent.change(textarea, {target: {value: givenWriting}});
 
     expect(Pencil).toHaveBeenCalledWith({
       durabilityRating,
-      eraserDurabilityRating: durabilityRating,
+      eraserDurabilityRating,
       handleClick: expect.any(Function),  
       used: expectedUse}, {});
 
@@ -135,7 +136,7 @@ describe('Paper behavior', () => {
 
     expect(Pencil).toHaveBeenCalledWith({
       durabilityRating: expectedDurabilityRatingAfterSharpen,
-      eraserDurabilityRating: expectedDurabilityRatingAfterSharpen,
+      eraserDurabilityRating,
       handleClick: expect.any(Function),  
       used: 0}, {});
   });

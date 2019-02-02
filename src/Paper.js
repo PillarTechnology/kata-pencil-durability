@@ -121,7 +121,7 @@ class Paper extends Component {
         <h1>Pencil Durability</h1>
 
         <Pencil durabilityRating={this.state.durabilityRating}
-            eraserDurabilityRating={this.state.durabilityRating}
+            eraserDurabilityRating={this.props.eraserDurabilityRating}
             handleClick={this.erase}
             used={this.state.used}>
         </Pencil>
