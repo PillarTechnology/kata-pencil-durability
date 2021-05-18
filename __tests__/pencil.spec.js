@@ -1,4 +1,5 @@
-const Pencil = require("../kata/pencil")
+const Pencil = require("../kata/pencil");
+const Paper = require("../kata/paper");
 
 describe("Pencil class", () => {
   test("Pencil constructor should create a new pencil object with passed in properties", () => {
@@ -24,5 +25,23 @@ describe("Pencil class", () => {
     expect(pencil.point).toBe(10);
     expect(pencil.size).toBe(10);
     expect(pencil.eraser).toBe(0);
+  });
+});
+
+describe("Write method", () => {
+  describe("Pencil writes to blank paper", () => {
+    const pencil = new Pencil(20);
+    const mantra = "TDD is fun "; // counts 11 characters, 6 for capital, 5 for lowercase
+    const blankPaper = new Paper();
+    pencil.write(mantra, blankPaper);
+    
+    test("it should add mantra to blank paper object", () => {
+      expect(blankPaper.text).toBe(mantra);
+      expect(blankPaper.text.length).toBe(11);
+    });
+    test("it should cutoff text if pencil point not durable enough", () => {
+      pencil.write("and very rewarding!", blankPaper);
+      expect(blankPaper.text).toBe("TDD is fun and very re");
+    });
   });
 });
