@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "My TDD exercise using the kata-pencil-durability starter project",
   "main": "index.js",
-  "jest": {
-    "verbose": true,
-    "collectcoverage": true
-  },
   "scripts": {
     "test": "jest"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
   },
   "repository": {
     "type": "git",
