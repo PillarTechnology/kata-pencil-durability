@@ -18,15 +18,15 @@ class Pencil {
             } else {
                 const currentChar = text[i];
                 const lowerCase = currentChar.toLowerCase() === currentChar;
-                const whiteSpace = currentChar.trim();
+                const whiteSpace = currentChar.trim().length !== 0;
 
                 // if lowercase point - 1
-                if (lowerCase && whiteSpace.length !== 0) {
+                if (lowerCase && whiteSpace) {
                     this.point--;
                     paper.text += currentChar;
                 }
                 // if uppercase point - 2
-                else if (!lowerCase && whiteSpace.length !== 0) {
+                else if (!lowerCase && whiteSpace) {
                     this.point -= 2;
                     paper.text += currentChar;
                 }
