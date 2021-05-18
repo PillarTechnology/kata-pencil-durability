@@ -7,4 +7,10 @@ describe("Pencil class", () => {
     expect(pencil.size).toBe(10);
     expect(pencil.eraser).toBe(20);
   });
+  test("Pencil constructor should create a new pencil object with default properties if nothing passed in", () => {
+    const pencil = new Pencil();
+    expect(pencil.point).toBe(0);
+    expect(pencil.size).toBe(0);
+    expect(pencil.eraser).toBe(0);
+  });
 });
