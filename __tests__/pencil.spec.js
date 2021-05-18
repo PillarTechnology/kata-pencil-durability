@@ -13,4 +13,16 @@ describe("Pencil class", () => {
     expect(pencil.size).toBe(0);
     expect(pencil.eraser).toBe(0);
   });
+  test("Pencil constructor should create a new pencil object with point property equal to value passed in", () => {
+    const pencil = new Pencil(1);
+    expect(pencil.point).toBe(1);
+    expect(pencil.size).toBe(0);
+    expect(pencil.eraser).toBe(0);
+  });
+  test("Pencil constructor should create a new pencil object with size property equal to value passed in", () => {
+    const pencil = new Pencil(10, 10);
+    expect(pencil.point).toBe(10);
+    expect(pencil.size).toBe(10);
+    expect(pencil.eraser).toBe(0);
+  });
 });
