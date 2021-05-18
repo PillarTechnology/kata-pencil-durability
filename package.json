@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "My TDD exercise using the kata-pencil-durability starter project",
   "main": "index.js",
+  "jest": {
+    "verbose": true,
+    "collectcoverage": true
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
