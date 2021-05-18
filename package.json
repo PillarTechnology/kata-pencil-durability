@@ -1,0 +1,22 @@
+{
+  "name": "kata-pencil-durability",
+  "version": "1.0.0",
+  "description": "My TDD exercise using the kata-pencil-durability starter project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpars88/kata-pencil-durability.git"
+  },
+  "author": "Derek Parson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dpars88/kata-pencil-durability/issues"
+  },
+  "homepage": "https://github.com/dpars88/kata-pencil-durability#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
