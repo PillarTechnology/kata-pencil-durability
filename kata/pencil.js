@@ -22,17 +22,15 @@ class Pencil {
                 const whiteSpace = currentChar.trim().length !== 0;
 
                 // if lowercase point - 1
+                // if uppercase point - 2
+                // if whitespace point - 0
                 if (lowerCase && whiteSpace) {
                     this.point--;
                     paper.text += currentChar;
-                }
-                // if uppercase point - 2
-                else if (!lowerCase && whiteSpace) {
+                } else if (!lowerCase && whiteSpace) {
                     this.point -= 2;
                     paper.text += currentChar;
-                }
-                // if whitespace point - 0
-                else {
+                } else {
                     paper.text += " ";
                 }
             }
@@ -46,11 +44,15 @@ class Pencil {
         // if pencil is already sharpened will not allow to sharpen again unless current point 
         // is less than original point
 
-        if (this.length === 0) { // first check if pencil has any length left to sharpen, if not throw error
+        // first check if pencil has any length left to sharpen, if not throw error
+        // if already sharpened do not sharpen again
+        // sharpen pencil by restoring point back to original point and reduce length by 1
+
+        if (this.length === 0) { 
             throw new Error("Pencil out of length")
-        } else if (this.point === this.originalPoint) { // if already sharpened do not sharpen again
+        } else if (this.point === this.originalPoint) { 
             throw new Error("Pencil already sharpened")
-        } else { // sharpen pencil by restoring point back to original point and reduce length by 1
+        } else { 
             this.point = this.originalPoint;
             this.size--;
             return;
