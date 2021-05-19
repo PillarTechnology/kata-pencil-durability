@@ -55,10 +55,34 @@ describe("Sharpen method", () => {
     const mantra = "TDD is fun "; // counts 11 characters, 6 for capital, 5 for lowercase
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
-    
+
     test("it should sharpen pencil point back to original point", () => {
       pencil.sharpen();
       expect(pencil.point).toBe(20);
+    });
+  });
+});
+
+describe("Erase method", () => {
+  describe("Pencil erases given word", () => {
+    const pencil = new Pencil();
+    const erase = "TDD is fun but perfecting TDD is more fun!"; // counts 11 characters, 6 for capital, 5 for lowercase
+    const blankPaper = new Paper();
+    pencil.write(erase, blankPaper);
+    
+    test("it should erase the last occurance of 'fun' and replace with appropriate whitespaces", () => {
+      pencil.erase("fun", blankPaper);
+      expect(blankPaper.text).toBe("TDD is fun but perfecting TDD is more    !");
+    });
+    test("it should degrade the eraser by 3", () => {
+      expect(pencil.eraser).toBe(47);
+    });
+    test("it should erase the last occurance of 'TDD' and replace with appropriate whitespaces", () => {
+      pencil.erase("TDD", blankPaper);
+      expect(blankPaper.text).toBe("TDD is fun but perfecting     is more    !");
+    });
+    test("it should degrade the eraser by 3 more", () => {
+      expect(pencil.eraser).toBe(44);
     });
   });
 });
