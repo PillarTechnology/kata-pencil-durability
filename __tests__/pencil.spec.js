@@ -35,9 +35,12 @@ describe("Write method", () => {
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
     
-    test("it should add mantra to blank paper object", () => {
+    test("it should add mantra to blank paper object and degrade point property", () => {
       expect(blankPaper.text).toBe(mantra);
       expect(blankPaper.text.length).toBe(11);
+    });
+    test("it should reduce pencil point after writing", () => {
+      expect(pencil.point).toBe(9);
     });
     test("it should cutoff text if pencil point not durable enough", () => {
       pencil.write("and very rewarding!", blankPaper);
@@ -53,9 +56,6 @@ describe("Sharpen method", () => {
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
     
-    test("it should reduce pencil point", () => {
-      expect(pencil.point).toBe(9);
-    });
     test("it should sharpen pencil point back to original point", () => {
       pencil.sharpen();
       expect(pencil.point).toBe(20);
