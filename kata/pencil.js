@@ -58,6 +58,46 @@ class Pencil {
             return;
         }
     }
+
+    erase(wordToErase, paper) {
+        // need to find the last occurance of the word that will be erased within the passed in paper
+        // need to check eraser value before erasing any characters
+        // if eraser out of value stop erasing and return
+        // else erase letter by letter and replace with whitespace and -1 from eraser value each step
+        // cannot change input so need to rebuild string around the word that will be erased
+        // get first half of text before word to erase
+        // get second half of text after word to erase
+        // erase as much as possible of word that eraser will allow
+        // bulid return text back by adding first half, erased word, second half together
+
+        let result = "";
+        let erasedWord = "";
+        const lastOccurance = paper.text.lastIndexOf(wordToErase);
+        const wordLength = wordToErase.length;
+        const firstHalf = paper.text.slice(0,lastOccurance);
+        const secondHalf = paper.text.slice(lastOccurance + wordLength)
+
+        if (!paper.text.includes(wordToErase)) {
+            throw new Error ("Word to erase is not located within given paper");
+        } else if (this.eraser === 0) {
+            throw new Error ("No more eraser left! Time to get a new pencil!");
+        } else {
+
+            for (let i = 0; i < wordLength; i++) {
+                if (this.eraser !== 0) {
+                    erasedWord += " ";
+                    this.eraser--;
+                } else {
+                    erasedWord += wordToErase[i];
+                }
+            }
+        }
+        result += firstHalf;
+        result += erasedWord;
+        result += secondHalf;
+        paper.text = result;
+        return paper;
+    }
 }
 
 module.exports = Pencil;
