@@ -86,3 +86,18 @@ describe("Erase method", () => {
     });
   });
 });
+
+describe("Edit method", () => {
+  describe("Pencil will add new text to previously erased text location", () => {
+    const pencil = new Pencil();
+    const mantra = "An apple a day keeps the doctor away";
+    const blankPaper = new Paper();
+    pencil.write(mantra, blankPaper);
+    pencil.erase("apple", blankPaper);
+    pencil.edit("onion", blankPaper);
+
+    test("it should add 'onion' to blankPaper in space left from erasing 'apple' previously", () => {
+      expect(blankPaper.text).toBe("An onion a day keeps the doctor away");
+    });
+  });
+});
