@@ -90,14 +90,17 @@ describe("Erase method", () => {
 describe("Edit method", () => {
   describe("Pencil will add new text to previously erased text location", () => {
     const pencil = new Pencil();
-    const mantra = "An apple a day keeps the doctor away";
+    const mantra = "An apple a day keeps the doctor away"; // 30 characters, 1 capital 28 lowercase
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
-    pencil.erase("apple", blankPaper);
-    pencil.edit("onion", blankPaper);
+    pencil.erase("apple", blankPaper); // Should take away 5 from eraser
+    pencil.edit("onion", blankPaper); // Should take away 5 from pencil point
 
     test("it should add 'onion' to blankPaper in space left from erasing 'apple' previously", () => {
       expect(blankPaper.text).toBe("An onion a day keeps the doctor away");
+    });
+    test("it should degrade pencil point by correct amount when adding new word to paper", () => {
+      expect(pencil.point).toBe(15);
     });
   });
 });
