@@ -125,11 +125,19 @@ class Pencil {
             for (let i = 0; i < editPart.length; i++) {
                 // if curent index of paper text is whitespace, add current character of wordToAdd to editedWord
                 if (editPart[i] === " ") {
-                    // write(text, paper)
-                    let current = wordToAdd[i];
-                    editedWord += current;
+                    let current = this.editWrite(wordToAdd[i]);
+                    if (!current) {
+                        break;
+                    } else {
+                        editedWord += current;
+                    }
                 } else {
-                    editedWord += "@";
+                    let current = this.editWrite("@");
+                    if (!current) {
+                        break;
+                    } else {
+                        editedWord += current;
+                    }
                 }
             }
         }
@@ -138,6 +146,32 @@ class Pencil {
         result += lastPart;
         paper.text = result;
         return paper;
+    }
+
+    editWrite(letter) {
+        //need to check if capital, lowercase, whitespace
+        const pointDull = this.point === 0;
+
+        if (pointDull) {
+            return false; //no more writing can be done because out of point value
+        } else {
+            const currentChar = letter;
+            const lowerCase = currentChar.toLowerCase() === currentChar;
+            const whiteSpace = currentChar.trim().length !== 0;
+
+            // if lowercase point - 1
+            // if uppercase point - 2
+            // if whitespace point - 0
+            if (lowerCase && whiteSpace) {
+                this.point--;
+                return letter;
+            } else if (!lowerCase && whiteSpace) {
+                this.point -= 2;
+                return letter;
+            } else {
+                return letter;
+            }
+        }
     }
 }
 
