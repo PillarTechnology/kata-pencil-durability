@@ -88,6 +88,16 @@ describe("Erase method", () => {
 });
 
 describe("Edit method", () => {
+  describe("If nothing has been previously erased an error will be thrown", () => {
+    const pencil = new Pencil();
+    const mantra = "An apple a day keeps the doctor away"; // 30 characters, 1 capital 28 lowercase
+    const blankPaper = new Paper();
+    pencil.write(mantra, blankPaper); 
+
+    test("it should add 'onion' to blankPaper in space left from erasing 'apple' previously", () => {
+      expect(() => {pencil.edit("onion", blankPaper)}).toThrow("Nothing has been previously erased to add new text to");
+    });
+  });
   describe("Pencil will add new text to previously erased text location", () => {
     const pencil = new Pencil();
     const mantra = "An apple a day keeps the doctor away"; // 30 characters, 1 capital 28 lowercase
