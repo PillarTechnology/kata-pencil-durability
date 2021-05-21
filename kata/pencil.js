@@ -83,6 +83,7 @@ class Pencil {
             throw new Error ("No more eraser left! Time to get a new pencil!");
         } else {
             paper.erased = lastOccurance;
+            paper.erasedQueue.push(lastOccurance);
             for (let i = 0; i < wordLength; i++) {
                 if (this.eraser !== 0) {
                     erasedWord += " ";
@@ -127,19 +128,25 @@ class Pencil {
                 if (editPart[i] === " ") {
                     let current = this.editWrite(wordToAdd[i]);
                     if (!current) {
-                        break;
+                        editedWord += editPart[i];
                     } else {
                         editedWord += current;
                     }
                 } else {
                     let current = this.editWrite("@");
                     if (!current) {
-                        break;
+                        editedWord += editPart[i];
                     } else {
                         editedWord += current;
                     }
                 }
             }
+        }
+        paper.editQueue.shift();
+        if (paper.editQueue.length === 0) {
+            paper.erased = false;
+        } else {
+            paper.erased = paper.editQueue[0];
         }
         result += firstPart;
         result += editedWord;
