@@ -101,6 +101,16 @@ describe("Erase method", () => {
       expect(() => {pencil.erase("sad", blankPaper)}).toThrow("Word to erase is not located within given paper");
     });
   });
+  describe("Pencil throws error when trying to erase with no eraser value left", () => {
+    const pencil = new Pencil({eraser: 0});
+    const erase = "TDD is fun but perfecting TDD is more fun!"; // counts 11 characters, 6 for capital, 5 for lowercase
+    const blankPaper = new Paper();
+    pencil.write(erase, blankPaper);
+    
+    test("it shouldn't erase given word due to not enough eraser value and throw correct error", () => {
+      expect(() => {pencil.erase("fun", blankPaper)}).toThrow("No more eraser left! Time to get a new pencil!");
+    });
+  });
 });
 
 describe("Edit method", () => {

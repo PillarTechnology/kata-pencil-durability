@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1621619021272" clover="3.2.0">
-  <project timestamp="1621619021272" name="All files">
-    <metrics statements="93" coveredstatements="87" conditionals="46" coveredconditionals="39" methods="7" coveredmethods="7" elements="146" coveredelements="133" complexity="0" loc="93" ncloc="93" packages="1" files="2" classes="2"/>
+<coverage generated="1621619408735" clover="3.2.0">
+  <project timestamp="1621619408735" name="All files">
+    <metrics statements="93" coveredstatements="88" conditionals="46" coveredconditionals="40" methods="7" coveredmethods="7" elements="146" coveredelements="135" complexity="0" loc="93" ncloc="93" packages="1" files="2" classes="2"/>
     <file name="paper.js" path="/Users/d.parson/Documents/GitHub/kata-pencil-durability/kata/paper.js">
       <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-      <line num="3" count="14" type="cond" truecount="2" falsecount="0"/>
-      <line num="4" count="14" type="stmt"/>
-      <line num="5" count="14" type="stmt"/>
+      <line num="3" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="4" count="15" type="stmt"/>
+      <line num="5" count="15" type="stmt"/>
       <line num="9" count="2" type="stmt"/>
     </file>
     <file name="pencil.js" path="/Users/d.parson/Documents/GitHub/kata-pencil-durability/kata/pencil.js">
-      <metrics statements="89" coveredstatements="83" conditionals="44" coveredconditionals="37" methods="6" coveredmethods="6"/>
-      <line num="3" count="15" type="stmt"/>
-      <line num="4" count="15" type="stmt"/>
-      <line num="5" count="15" type="stmt"/>
-      <line num="6" count="15" type="stmt"/>
-      <line num="14" count="13" type="stmt"/>
-      <line num="15" count="366" type="stmt"/>
-      <line num="17" count="366" type="cond" truecount="2" falsecount="0"/>
+      <metrics statements="89" coveredstatements="84" conditionals="44" coveredconditionals="38" methods="6" coveredmethods="6"/>
+      <line num="3" count="16" type="stmt"/>
+      <line num="4" count="16" type="stmt"/>
+      <line num="5" count="16" type="stmt"/>
+      <line num="6" count="16" type="stmt"/>
+      <line num="14" count="14" type="stmt"/>
+      <line num="15" count="408" type="stmt"/>
+      <line num="17" count="408" type="cond" truecount="2" falsecount="0"/>
       <line num="18" count="1" type="stmt"/>
-      <line num="20" count="365" type="stmt"/>
-      <line num="21" count="365" type="stmt"/>
-      <line num="22" count="365" type="stmt"/>
-      <line num="27" count="365" type="cond" truecount="4" falsecount="0"/>
-      <line num="28" count="260" type="stmt"/>
-      <line num="29" count="260" type="stmt"/>
-      <line num="30" count="105" type="cond" truecount="4" falsecount="0"/>
-      <line num="31" count="35" type="stmt"/>
-      <line num="32" count="35" type="stmt"/>
-      <line num="34" count="70" type="stmt"/>
-      <line num="38" count="12" type="stmt"/>
+      <line num="20" count="407" type="stmt"/>
+      <line num="21" count="407" type="stmt"/>
+      <line num="22" count="407" type="stmt"/>
+      <line num="27" count="407" type="cond" truecount="4" falsecount="0"/>
+      <line num="28" count="288" type="stmt"/>
+      <line num="29" count="288" type="stmt"/>
+      <line num="30" count="119" type="cond" truecount="4" falsecount="0"/>
+      <line num="31" count="41" type="stmt"/>
+      <line num="32" count="41" type="stmt"/>
+      <line num="34" count="78" type="stmt"/>
+      <line num="38" count="13" type="stmt"/>
       <line num="50" count="4" type="cond" truecount="2" falsecount="0"/>
       <line num="51" count="1" type="stmt"/>
       <line num="52" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -37,16 +37,16 @@
       <line num="55" count="2" type="stmt"/>
       <line num="56" count="2" type="stmt"/>
       <line num="57" count="2" type="stmt"/>
-      <line num="72" count="11" type="stmt"/>
-      <line num="73" count="11" type="stmt"/>
-      <line num="74" count="11" type="stmt"/>
-      <line num="75" count="11" type="stmt"/>
-      <line num="76" count="11" type="stmt"/>
-      <line num="77" count="11" type="stmt"/>
-      <line num="79" count="11" type="cond" truecount="2" falsecount="0"/>
+      <line num="72" count="12" type="stmt"/>
+      <line num="73" count="12" type="stmt"/>
+      <line num="74" count="12" type="stmt"/>
+      <line num="75" count="12" type="stmt"/>
+      <line num="76" count="12" type="stmt"/>
+      <line num="77" count="12" type="stmt"/>
+      <line num="79" count="12" type="cond" truecount="2" falsecount="0"/>
       <line num="80" count="1" type="stmt"/>
-      <line num="81" count="10" type="cond" truecount="1" falsecount="1"/>
-      <line num="82" count="0" type="stmt"/>
+      <line num="81" count="11" type="cond" truecount="2" falsecount="0"/>
+      <line num="82" count="1" type="stmt"/>
       <line num="84" count="10" type="stmt"/>
       <line num="85" count="10" type="stmt"/>
       <line num="86" count="10" type="stmt"/>
