@@ -3,7 +3,7 @@ const Paper = require("../kata/paper");
 
 describe("Pencil class", () => {
   test("Pencil constructor should create a new pencil object with passed in properties", () => {
-    const pencil = new Pencil(100, 10, 20);
+    const pencil = new Pencil({point: 100, size: 10, eraser: 20});
     expect(pencil.point).toBe(100);
     expect(pencil.size).toBe(10);
     expect(pencil.eraser).toBe(20);
@@ -11,17 +11,17 @@ describe("Pencil class", () => {
   test("Pencil constructor should create a new pencil object with default properties if nothing passed in", () => {
     const pencil = new Pencil();
     expect(pencil.point).toBe(50);
-    expect(pencil.size).toBe(10);
+    expect(pencil.size).toBe(0);
     expect(pencil.eraser).toBe(50);
   });
   test("Pencil constructor should create a new pencil object with point property equal to value passed in", () => {
-    const pencil = new Pencil(1);
+    const pencil = new Pencil({point: 1});
     expect(pencil.point).toBe(1);
-    expect(pencil.size).toBe(10);
+    expect(pencil.size).toBe(0);
     expect(pencil.eraser).toBe(50);
   });
   test("Pencil constructor should create a new pencil object with size property equal to value passed in", () => {
-    const pencil = new Pencil(10, 20);
+    const pencil = new Pencil({point:10, size: 20});
     expect(pencil.point).toBe(10);
     expect(pencil.size).toBe(20);
     expect(pencil.eraser).toBe(50);
@@ -30,7 +30,7 @@ describe("Pencil class", () => {
 
 describe("Write method", () => {
   describe("Pencil writes to blank paper", () => {
-    const pencil = new Pencil(20);
+    const pencil = new Pencil({point: 20});
     const mantra = "TDD is fun "; // counts 11 characters, 6 for capital, 5 for lowercase
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
@@ -56,12 +56,22 @@ describe("Sharpen method", () => {
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
 
-    test("it should sharpen pencil point back to original point", () => {
-      pencil.sharpen();
-      expect(pencil.point).toBe(20);
-    });
-    test("it shouldn't sharpen an already sharpened pencil, throw error stating pencil already sharpened", () => {
-      expect(() => {pencil.sharpen()}).toThrow("Pencil already sharpened");
+    // test("it should sharpen pencil point back to original point", () => {
+    //   pencil.sharpen();
+    //   expect(pencil.point).toBe(20);
+    // });
+    // test("it shouldn't sharpen an already sharpened pencil, throw error stating pencil already sharpened", () => {
+    //   expect(() => {pencil.sharpen()}).toThrow("Pencil already sharpened");
+    // });
+    test("it shouldn't sharpen a pencil with no length left and throw error stating out of length", () => {
+      const shortPencil = new Pencil({point: 20, size: 1, eraser: 20});
+      const shortFirst = "Goodbye ";
+      const shortSecond = "short pencil"
+      const shortStory = new Paper();
+      shortPencil.write(shortFirst, shortStory);
+      shortPencil.sharpen();
+      shortPencil.write(shortSecond, shortStory)
+      expect(() => {pencil.sharpen()}).toThrow("Pencil out of length");
     });
   });
 });
@@ -135,7 +145,7 @@ describe("Edit method", () => {
     });
   });
   describe("Pencil will stop editing if runs out of pencil point", () => {
-    const pencil = new Pencil(35);
+    const pencil = new Pencil({point: 35});
     const mantra = "An apple a day keeps the doctor away"; // 30 characters, 1 capital 28 lowercase
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
@@ -156,9 +166,9 @@ describe("Edit method", () => {
     pencil.write(mantra, blankPaper);
     pencil.erase("fun", blankPaper); // Should take away 5 from eraser
     pencil.erase("TDD", blankPaper);
-    // test("it should return the sentence with the last 'fun' missing and the last 'TDD' missing", () => {
-    //   expect(blankPaper.text).toBe("TDD is fun but perfecting     is more    !");
-    // });
+    test("it should return the sentence with the last 'fun' missing and the last 'TDD' missing", () => {
+      expect(blankPaper.text).toBe("TDD is fun but perfecting     is more    !");
+    });
     test("it should return the sentence with the last 'TDD' replaced with 'you'", () => {
       pencil.edit("you", blankPaper); // Should take away 9 from pencil point
       expect(blankPaper.text).toBe("TDD is fun but perfecting you is more    !");
