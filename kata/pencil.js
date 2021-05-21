@@ -20,7 +20,6 @@ class Pencil {
                 const currentChar = text[i];
                 const lowerCase = currentChar.toLowerCase() === currentChar;
                 const whiteSpace = currentChar.trim().length !== 0;
-
                 // if lowercase point - 1
                 // if uppercase point - 2
                 // if whitespace point - 0
@@ -84,11 +83,13 @@ class Pencil {
             paper.erased = lastOccurance;
             paper.erasedStack.push(lastOccurance);
             for (let i = 0; i < wordLength; i++) {
-                if (this.eraser !== 0) {
+                const space = wordToErase[i] === " " ? true : false;
+                if (this.eraser !== 0 && !space) {
                     erasedWord += " ";
                     this.eraser--;
+                } else if (space) {
+                    erasedWord += " ";
                 } else {
-                    console.log(wordToErase)
                     erasedWord += wordToErase[i];
                 }
             }
@@ -162,15 +163,14 @@ class Pencil {
         } else {
             const currentChar = letter;
             const lowerCase = currentChar.toLowerCase() === currentChar;
-            const whiteSpace = currentChar.trim().length !== 0;
-
+            const whiteSpace = currentChar.trim().length === 0;
             // if lowercase point - 1
             // if uppercase point - 2
             // if whitespace point - 0
-            if (lowerCase && whiteSpace) {
+            if (lowerCase && !whiteSpace) {
                 this.point--;
                 return letter;
-            } else if (!lowerCase && whiteSpace) {
+            } else if (!lowerCase && !whiteSpace) {
                 this.point -= 2;
                 return letter;
             } else {
