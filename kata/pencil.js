@@ -111,18 +111,16 @@ class Pencil {
         // add all back up together at end to create a new string
         // also need to degrade pencil
 
-        let result = "";
-        let editedWord = "";
-        const wordLength = wordToAdd.length;
-        const firstPart = paper.text.slice(0, paper.erased);
-        const editPart = paper.text.slice(paper.erased, paper.erased + wordLength)
-        const lastPart = paper.text.slice(paper.erased + wordLength);
-
         // check if there has been anything erased before moving forward with editing
         if (!paper.erased) {
             throw new Error("Nothing has been previously erased to add new text to")
         } else {
-
+            let result = "";
+            let editedWord = "";
+            const wordLength = wordToAdd.length;
+            const firstPart = paper.text.slice(0, paper.erased);
+            const editPart = paper.text.slice(paper.erased, paper.erased + wordLength)
+            const lastPart = paper.text.slice(paper.erased + wordLength);
             for (let i = 0; i < editPart.length; i++) {
                 // if curent index of paper text is whitespace, add current character of wordToAdd to editedWord
                 if (editPart[i] === " ") {
@@ -140,20 +138,20 @@ class Pencil {
                         editedWord += current;
                     }
                 }
-            }
-        }
-        paper.editQueue.shift();
-        if (paper.editQueue.length === 0) {
+            };
+        paper.erasedQueue.pop();
+        if (paper.erasedQueue.length === 0) {
             paper.erased = false;
         } else {
-            paper.erased = paper.editQueue[0];
+            paper.erased = paper.erasedQueue[0];
         }
         result += firstPart;
         result += editedWord;
         result += lastPart;
         paper.text = result;
         return paper;
-    }
+        };
+    };
 
     editWrite(letter) {
         //need to check if capital, lowercase, whitespace
