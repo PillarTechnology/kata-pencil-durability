@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">93.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>84/92</span>
+                <span class='fraction'>87/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.55% </span>
+                <span class="strong">84.09% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/44</span>
+                <span class='fraction'>37/44</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.01% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/89</span>
+                <span class='fraction'>84/90</span>
             </div>
         
             
@@ -288,38 +288,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -470,11 +470,11 @@
         // first check if pencil has any length left to sharpen, if not throw error
         // if already sharpened do not sharpen again
         // sharpen pencil by restoring point back to original point and reduce length by 1
-&nbsp;
+        console.log('inside of sharper', this.size)
         if (this.size === 0) { 
             throw new Error("Pencil out of length")
-        } else <span class="missing-if-branch" title="if path not taken" >I</span>if (this.point === this.originalPoint) { 
-<span class="cstat-no" title="statement not covered" >            throw new Error("Pencil already sharpened")</span>
+        } else if (this.point === this.originalPoint) { 
+            throw new Error("Pencil already sharpened")
         } else { 
             this.point = this.originalPoint;
             this.size--;
@@ -500,8 +500,8 @@
         const firstHalf = paper.text.slice(0,lastOccurance);
         const secondHalf = paper.text.slice(lastOccurance + wordLength)
 &nbsp;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!paper.text.includes(wordToErase)) {
-<span class="cstat-no" title="statement not covered" >            throw new Error ("Word to erase is not located within given paper");</span>
+        if (!paper.text.includes(wordToErase)) {
+            throw new Error ("Word to erase is not located within given paper");
         } else <span class="missing-if-branch" title="if path not taken" >I</span>if (this.eraser === 0) {
 <span class="cstat-no" title="statement not covered" >            throw new Error ("No more eraser left! Time to get a new pencil!");</span>
         } else {
@@ -610,7 +610,7 @@ module.exports = Pencil;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri May 21 2021 12:09:38 GMT-0400 (Eastern Daylight Time)
+                at Fri May 21 2021 13:38:08 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="prettify.js"></script>

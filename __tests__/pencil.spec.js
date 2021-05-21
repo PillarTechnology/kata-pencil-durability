@@ -51,28 +51,28 @@ describe("Write method", () => {
 
 describe("Sharpen method", () => {
   describe("Pencil point dulls after writing", () => {
-    const pencil = new Pencil(20);
+    const pencil = new Pencil({point: 20, size: 10});
     const mantra = "TDD is fun "; // counts 11 characters, 6 for capital, 5 for lowercase
     const blankPaper = new Paper();
     pencil.write(mantra, blankPaper);
 
-    // test("it should sharpen pencil point back to original point", () => {
-    //   pencil.sharpen();
-    //   expect(pencil.point).toBe(20);
-    // });
-    // test("it shouldn't sharpen an already sharpened pencil, throw error stating pencil already sharpened", () => {
-    //   expect(() => {pencil.sharpen()}).toThrow("Pencil already sharpened");
-    // });
-    test("it shouldn't sharpen a pencil with no length left and throw error stating out of length", () => {
-      const shortPencil = new Pencil({point: 20, size: 1, eraser: 20});
-      const shortFirst = "Goodbye ";
-      const shortSecond = "short pencil"
-      const shortStory = new Paper();
-      shortPencil.write(shortFirst, shortStory);
-      shortPencil.sharpen();
-      shortPencil.write(shortSecond, shortStory)
-      expect(() => {pencil.sharpen()}).toThrow("Pencil out of length");
+    test("it should sharpen pencil point back to original point", () => {
+      pencil.sharpen();
+      expect(pencil.point).toBe(20);
     });
+    test("it shouldn't sharpen an already sharpened pencil, throw error stating pencil already sharpened", () => {
+      expect(() => {pencil.sharpen()}).toThrow("Pencil already sharpened");
+    });
+  });
+  describe("Pencil point dulls after writing", () => {
+    const shortPencil = new Pencil({point: 20, size: 1});
+    const shortFirst = "Goodbye ";
+    const shortSecond = "short pencil"
+    const shortPaper = new Paper();
+    shortPencil.write(shortFirst, shortPaper);
+    shortPencil.sharpen();
+    shortPencil.write(shortSecond, shortPaper);
+    expect(() => {shortPencil.sharpen()}).toThrow("Pencil out of length");
   });
 });
 
