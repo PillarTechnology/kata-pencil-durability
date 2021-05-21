@@ -88,6 +88,7 @@ class Pencil {
                     erasedWord += " ";
                     this.eraser--;
                 } else {
+                    console.log(wordToErase)
                     erasedWord += wordToErase[i];
                 }
             }
