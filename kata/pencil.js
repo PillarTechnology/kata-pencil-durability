@@ -1,9 +1,9 @@
 class Pencil {
-    constructor(point, size, eraser) {
-        this.originalPoint = point || 50;
-        this.point = point || 50;
-        this.size = size || 10;
-        this.eraser = eraser || 50;
+    constructor( { point = 50, size = 0, eraser = 50 } = {}) {
+        this.originalPoint = point;
+        this.point = point;
+        this.size = size;
+        this.eraser = eraser;
     }
 
     write(text, paper) {
@@ -48,7 +48,7 @@ class Pencil {
         // if already sharpened do not sharpen again
         // sharpen pencil by restoring point back to original point and reduce length by 1
 
-        if (this.length === 0) { 
+        if (this.size === 0) { 
             throw new Error("Pencil out of length")
         } else if (this.point === this.originalPoint) { 
             throw new Error("Pencil already sharpened")
