@@ -60,6 +60,9 @@ describe("Sharpen method", () => {
       pencil.sharpen();
       expect(pencil.point).toBe(20);
     });
+    test("it shouldn't sharpen an already sharpened pencil, throw error stating pencil already sharpened", () => {
+      expect(() => {pencil.sharpen()}).toThrow("Pencil already sharpened");
+    });
   });
 });
 
