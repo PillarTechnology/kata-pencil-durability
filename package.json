@@ -10,7 +10,9 @@
     "verbose": true,
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**"
     ]
   },
   "repository": {
