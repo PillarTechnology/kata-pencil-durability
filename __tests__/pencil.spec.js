@@ -97,6 +97,9 @@ describe("Erase method", () => {
     test("it should degrade the eraser by 3 more", () => {
       expect(pencil.eraser).toBe(44);
     });
+    test("it shouldn't erase a word not found on given paper and return the correct error", () => {
+      expect(() => {pencil.erase("sad", blankPaper)}).toThrow("Word to erase is not located within given paper");
+    });
   });
 });
 

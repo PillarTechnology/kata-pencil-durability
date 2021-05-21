@@ -47,7 +47,6 @@ class Pencil {
         // first check if pencil has any length left to sharpen, if not throw error
         // if already sharpened do not sharpen again
         // sharpen pencil by restoring point back to original point and reduce length by 1
-        console.log('inside of sharper', this.size)
         if (this.size === 0) { 
             throw new Error("Pencil out of length")
         } else if (this.point === this.originalPoint) { 
