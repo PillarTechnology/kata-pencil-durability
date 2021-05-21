@@ -22,13 +22,14 @@ describe("Paper class", () => {
     pencil.erase("fun", blankPaper);
     expect(blankPaper.erased).toBe(38);
   });
-  test("Paper erased property should change from last erased index to reflect index of new erased word", () => {
+  test("Paper erasedStack property should change when more words are erased from paper", () => {
     const pencil = new Pencil();
     const erase = "TDD is fun but perfecting TDD is more fun!"; // counts 11 characters, 6 for capital, 5 for lowercase
     const blankPaper = new Paper();
     pencil.write(erase, blankPaper);
     pencil.erase("fun", blankPaper);
+    expect(blankPaper.erasedStack[0]).toBe(38);
     pencil.erase("TDD", blankPaper);
-    expect(blankPaper.erased).toBe(26);
+    expect(blankPaper.erasedStack[1]).toBe(26);
   });
 });
