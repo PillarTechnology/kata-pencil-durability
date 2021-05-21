@@ -100,6 +100,10 @@ describe("Erase method", () => {
     test("it shouldn't erase a word not found on given paper and return the correct error", () => {
       expect(() => {pencil.erase("sad", blankPaper)}).toThrow("Word to erase is not located within given paper");
     });
+    test("it should subtract from eraser value only if a non-whitespace character is encountered", () => {
+      pencil.erase("fun but", blankPaper);
+      expect(pencil.eraser).toBe(38);
+    });
   });
   describe("Pencil throws error when trying to erase with no eraser value left", () => {
     const pencil = new Pencil({eraser: 0});
@@ -110,15 +114,15 @@ describe("Erase method", () => {
     test("it shouldn't erase given word due to not enough eraser value and throw correct error", () => {
       expect(() => {pencil.erase("fun", blankPaper)}).toThrow("No more eraser left! Time to get a new pencil!");
     });
-    describe("Pencil should stop erasing in middle of word if eraser value runs out in the middle of word", () => {
-      const pencil = new Pencil({eraser: 2});
-      const erase = "TDD is fun but perfecting TDD is more fun!"; // counts 11 characters, 6 for capital, 5 for lowercase
-      const blankPaper = new Paper();
-      pencil.write(erase, blankPaper);
-      pencil.erase("fun", blankPaper)
-      test("it shouldn't erase given word due to not enough eraser value and throw correct error", () => {
-        expect(blankPaper.text).toBe("TDD is fun but perfecting TDD is more   n!");
-      });
+  });
+  describe("Pencil should stop erasing in middle of word if eraser value runs out in the middle of word", () => {
+    const pencil = new Pencil({eraser: 2});
+    const erase = "TDD is fun but perfecting TDD is more fun!"; // counts 11 characters, 6 for capital, 5 for lowercase
+    const blankPaper = new Paper();
+    pencil.write(erase, blankPaper);
+    pencil.erase("fun", blankPaper)
+    test("it shouldn't erase given word due to not enough eraser value and throw correct error", () => {
+      expect(blankPaper.text).toBe("TDD is fun but perfecting TDD is more   n!");
     });
   });
 });

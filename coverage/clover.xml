@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1621624108572" clover="3.2.0">
-  <project timestamp="1621624108572" name="All files">
+<coverage generated="1621624562008" clover="3.2.0">
+  <project timestamp="1621624562009" name="All files">
     <metrics statements="96" coveredstatements="96" conditionals="52" coveredconditionals="52" methods="7" coveredmethods="7" elements="155" coveredelements="155" complexity="0" loc="96" ncloc="96" packages="1" files="2" classes="2"/>
     <file name="paper.js" path="/Users/d.parson/Documents/GitHub/kata-pencil-durability/kata/paper.js">
       <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -37,31 +37,31 @@
       <line num="54" count="2" type="stmt"/>
       <line num="55" count="2" type="stmt"/>
       <line num="56" count="2" type="stmt"/>
-      <line num="71" count="15" type="stmt"/>
-      <line num="72" count="15" type="stmt"/>
-      <line num="73" count="15" type="stmt"/>
-      <line num="74" count="15" type="stmt"/>
-      <line num="75" count="15" type="stmt"/>
-      <line num="76" count="15" type="stmt"/>
-      <line num="78" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="71" count="16" type="stmt"/>
+      <line num="72" count="16" type="stmt"/>
+      <line num="73" count="16" type="stmt"/>
+      <line num="74" count="16" type="stmt"/>
+      <line num="75" count="16" type="stmt"/>
+      <line num="76" count="16" type="stmt"/>
+      <line num="78" count="16" type="cond" truecount="2" falsecount="0"/>
       <line num="79" count="1" type="stmt"/>
-      <line num="80" count="14" type="cond" truecount="2" falsecount="0"/>
+      <line num="80" count="15" type="cond" truecount="2" falsecount="0"/>
       <line num="81" count="1" type="stmt"/>
-      <line num="83" count="13" type="stmt"/>
-      <line num="84" count="13" type="stmt"/>
-      <line num="85" count="13" type="stmt"/>
-      <line num="86" count="53" type="cond" truecount="2" falsecount="0"/>
-      <line num="87" count="53" type="cond" truecount="4" falsecount="0"/>
-      <line num="88" count="50" type="stmt"/>
-      <line num="89" count="50" type="stmt"/>
-      <line num="90" count="3" type="cond" truecount="2" falsecount="0"/>
-      <line num="91" count="2" type="stmt"/>
+      <line num="83" count="14" type="stmt"/>
+      <line num="84" count="14" type="stmt"/>
+      <line num="85" count="14" type="stmt"/>
+      <line num="86" count="60" type="cond" truecount="2" falsecount="0"/>
+      <line num="87" count="60" type="cond" truecount="4" falsecount="0"/>
+      <line num="88" count="56" type="stmt"/>
+      <line num="89" count="56" type="stmt"/>
+      <line num="90" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="91" count="3" type="stmt"/>
       <line num="93" count="1" type="stmt"/>
-      <line num="97" count="13" type="stmt"/>
-      <line num="98" count="13" type="stmt"/>
-      <line num="99" count="13" type="stmt"/>
-      <line num="100" count="13" type="stmt"/>
-      <line num="101" count="13" type="stmt"/>
+      <line num="97" count="14" type="stmt"/>
+      <line num="98" count="14" type="stmt"/>
+      <line num="99" count="14" type="stmt"/>
+      <line num="100" count="14" type="stmt"/>
+      <line num="101" count="14" type="stmt"/>
       <line num="116" count="8" type="cond" truecount="2" falsecount="0"/>
       <line num="117" count="1" type="stmt"/>
       <line num="119" count="7" type="stmt"/>
