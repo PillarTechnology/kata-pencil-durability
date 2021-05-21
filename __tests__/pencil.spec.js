@@ -121,19 +121,19 @@ describe("Edit method", () => {
       expect(pencil.point).toBe(11);
     });
   });
-  // describe("Pencil will stop editing if runs out of pencil point", () => {
-  //   const pencil = new Pencil();
-  //   const mantra = "An apple a day keeps the doctor away"; // 30 characters, 1 capital 28 lowercase
-  //   const blankPaper = new Paper();
-  //   pencil.write(mantra, blankPaper);
-  //   pencil.erase("apple", blankPaper); // Should take away 5 from eraser
-  //   pencil.edit("artichoke", blankPaper); // Should take away 9 from pencil point
+  describe("Pencil will stop editing if runs out of pencil point", () => {
+    const pencil = new Pencil(35);
+    const mantra = "An apple a day keeps the doctor away"; // 30 characters, 1 capital 28 lowercase
+    const blankPaper = new Paper();
+    pencil.write(mantra, blankPaper);
+    pencil.erase("apple", blankPaper); // Should take away 5 from eraser
+    pencil.edit("artichoke", blankPaper); // Should take away 9 from pencil point
 
-  //   test("it should add 'artichoke' to blankPaper in space left from erasing 'apple' previously but run out of space and add '@' when appropriate", () => {
-  //     expect(blankPaper.text).toBe("An artich@k@ay keeps the doctor away");
-  //   });
-  //   test("it should degrade pencil point by correct amount when adding 'artich@k@' to paper", () => {
-  //     expect(pencil.point).toBe(11);
-  //   });
-  // });
+    test("it should add 'artic' to blankPaper before running out of pencil point at which point no more editing can be done and the paper will return the non edited portion", () => {
+      expect(blankPaper.text).toBe("An artic a day keeps the doctor away");
+    });
+    test("it should degrade pencil point by correct amount when adding 'artich' to paper", () => {
+      expect(pencil.point).toBe(0);
+    });
+  });
 });
