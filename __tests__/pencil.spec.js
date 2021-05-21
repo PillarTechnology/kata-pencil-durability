@@ -136,4 +136,23 @@ describe("Edit method", () => {
       expect(pencil.point).toBe(0);
     });
   });
+  describe("Pencil can handle multiple edits to once sentence", () => {
+    const pencil = new Pencil(50);
+    const mantra = "TDD is fun but perfecting TDD is more fun!"; // 30 characters, 1 capital 28 lowercase
+    const blankPaper = new Paper();
+    pencil.write(mantra, blankPaper);
+    pencil.erase("fun", blankPaper); // Should take away 5 from eraser
+    pencil.erase("TDD", blankPaper);
+    test("it should return the sentence with the last 'fun' missing and the last 'TDD' missing", () => {
+      expect(blankPaper.text).toBe("TDD is fun but perfecting     is more    !");
+    });
+    test("it should return the sentence with the last 'TDD' replaced with 'you'", () => {
+      pencil.edit("you", blankPaper); // Should take away 9 from pencil point
+      expect(blankPaper.text).toBe("TDD is fun but perfecting you is more    !");
+    });
+    test("it should return the sentence with the last 'fun' replaced with 'yay'", () => {
+      pencil.edit("yay", blankPaper);
+      expect(blankPaper.text).toBe("TDD is fun but perfecting you is more yay!");
+    });
+  });
 });
