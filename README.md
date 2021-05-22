@@ -1,3 +1,12 @@
+# Getting Started With This Solution
+This solution has been written in Javascript using Jest as the testing framework. Node is utilized in this project so if you want to clone down this project to try it out for yourself make sure you have Node installed on your machine.
+
+1. Clone this repository down to your machine
+2. Open up the project using your editor of choice to view the project files
+3. In your terminal `cd` into the root directory of the project and `run npm install`
+4. Now you can run `npm run test` to run all tests in the project
+5. Once tests are finished running there will be a report that prints out in the terminal which lists the tests that have been run along with a coverage report showing coverage within the project files
+
 # Pencil Durability Kata
 The purpose of the Pencil Durability Kata is to write code to simulate, first coarsely and then more faithfully, an ordinary graphite pencil. It includes writing and editing text, point degradation, using the eraser, and sharpening the pencil. The point of this kata is to provide a larger-than-trivial exercise that can be used to practice TDD. A significant portion of the effort will be in determining which tests should be written and, more importantly, written next.
 

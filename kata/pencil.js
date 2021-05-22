@@ -1,9 +1,21 @@
 class Pencil {
     constructor( { point = 50, size = 0, eraser = 50 } = {}) {
         this.originalPoint = point;
-        this.point = point;
-        this.size = size;
-        this.eraser = eraser;
+        if (point < 0 || typeof(point) !== "number") {
+            throw new Error("Point value must be a integer number and not negative");
+        } else {
+            this.point = point;
+        }
+        if (size < 0 || typeof(size) !== "number") {
+            throw new Error("Size value must be a positive integer and not negative");
+        } else {
+            this.size = size;
+        }
+        if (eraser < 0 || typeof(eraser) !== "number") {
+            throw new Error("Eraser value must be a positive integer and not negative")
+        } else {
+            this.eraser = eraser;
+        }
     }
 
     write(text, paper) {

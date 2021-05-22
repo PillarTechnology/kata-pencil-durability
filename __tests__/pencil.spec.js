@@ -21,10 +21,22 @@ describe("Pencil class", () => {
     expect(pencil.eraser).toBe(50);
   });
   test("Pencil constructor should create a new pencil object with size property equal to value passed in", () => {
-    const pencil = new Pencil({point:10, size: 20});
+    const pencil = new Pencil({point: 10, size: 20});
     expect(pencil.point).toBe(10);
     expect(pencil.size).toBe(20);
     expect(pencil.eraser).toBe(50);
+  });
+  test("Pencil constructor should throw error if a negative number or anythign but a number is passed to point", () => {
+    expect(() => {const pencil = new Pencil({point: -10, size: 20})}).toThrow("Point value must be a integer number and not negative");
+    expect(() => {const pencil = new Pencil({point: "10", size: 20})}).toThrow("Point value must be a integer number and not negative");
+  });
+  test("Pencil constructor should throw error if a negative number or anythign but a number is passed to size", () => {
+    expect(() => {const pencil = new Pencil({point: 10, size: -20})}).toThrow("Size value must be a positive integer and not negative");
+    expect(() => {const pencil = new Pencil({point: 10, size: true})}).toThrow("Size value must be a positive integer and not negative");
+  });
+  test("Pencil constructor should throw error if a negative number or anythign but a number is passed to eraser", () => {
+    expect(() => {const pencil = new Pencil({eraser: -1})}).toThrow("Eraser value must be a positive integer and not negative");
+    expect(() => {const pencil = new Pencil({eraser: null})}).toThrow("Eraser value must be a positive integer and not negative");
   });
 });
 
