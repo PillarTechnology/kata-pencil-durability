@@ -39,7 +39,7 @@ class TestPencilMethods(unittest.TestCase):
         words = "he\nllo\n"
         paper1 = Paper()
         return_words = pencil1.write_to_page(words)
-        self.assertEquals("he\nllo\n", return_words.strip()) # this is failing as we aren't keeping track of \n
+        self.assertEquals("he\nll \n", return_words) # this is failing as we aren't keeping track of \n
 
 # the pencil writes spaces when it runs out
     # test that the pencil writes spaces when it runs out of graphite

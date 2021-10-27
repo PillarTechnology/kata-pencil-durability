@@ -20,44 +20,32 @@ class Pencil:
 
     # TODO 
          # pass in Paper instance to write words to paper 
-    def write_to_page(self, words):
-        words_arr = words.strip().split() # removes white spaces to count words
-        
-        char_count = len(''.join(words_arr))
-        # if all the words can not be fully written
-        if(char_count > self.tip_degradation):
-            words_to_write = []
-            count = 0
-            for c in words_arr:
-
-                # code for getting point value for upper / lower case
-                # c_points = len(c) + sum(1 for x in c if x.isupper())
-                # print("c point" + str(c_points))
-
-                # if the word can be written fully
-                if(len(c) < self.tip_degradation):
-                    self.tip_degradation -= len(c)
-                    count += len(c)
-                    words_to_write.append(c)
-                # if the word can not be fully written
+    def write_to_page(self, words, paper):
+        word_to_write = ""
+        for c in words:
+            if( c == " " or c == "\n"):
+                word_to_write += c
+            elif(c.isupper()):
+                if(self.tip_degradation >= 2):
+                    word_to_write += c
+                    self.tip_degradation -= 2
                 else:
-                    last_index = self.tip_degradation - len(c)
-                    if(last_index == 0):
-                        words_to_write.append(c[-1])
-                    else:
-                        words_to_write.append(c[0 : last_index ])
-                        words_to_write.append(" " * ((len(c) - self.tip_degradation) - 1))
+                    word_to_write += " "
+            else:
+                if(self.tip_degradation >= 1):
+                    word_to_write += c
+                    self.tip_degradation -=1
+                else:
+                    word_to_write += " "
+        paper.write(word_to_write)
+        return word_to_write
 
-                    # paper.write_to_paper(words_to_write)
-                    return " ".join(words_to_write)
-        # if all the words can be fully written
-        else:
-            # paper.write_to_paper(words)
-            return words
-        
+    def sharpen(self):
+        if(self.length > 0):
+            self.length -= 1
+            self.tip_degradation = self.tip_degradation_mem
 
-
-
+            
 
    # def write_to_page(self, words, paper):
     #     # create list of words without spaces

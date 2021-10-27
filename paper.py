@@ -3,7 +3,7 @@ class Paper:
     def __init__(self):
         self.paper_str = ""
 
-    def write_to_paper(self, words):
+    def write(self, words):
         self.paper_str += words
         return self.paper_str
 
