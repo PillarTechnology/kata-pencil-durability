@@ -17,9 +17,6 @@ class Pencil:
         self.degradation_eraser = degredation_eraser
         self.eraser_degradation = degredation_eraser
 
-
-    # TODO 
-         # pass in Paper instance to write words to paper 
     def write_to_page(self, words, paper):
         word_to_write = ""
         for c in words:
@@ -45,24 +42,31 @@ class Pencil:
             self.length -= 1
             self.tip_degradation = self.tip_degradation_mem
 
-            
 
-   # def write_to_page(self, words, paper):
-    #     # create list of words without spaces
-    #     no_sp_words_arr = words.strip().split(" ")
+    def erase(self, words, paper):
+        st_index =  paper.get_words().rfind(words)
+        if(st_index == -1):
+            return  -1
+        if(st_index == 0):
+            first = paper.get_words()[0]
+        else:
+            first = paper.get_words()[0: st_index - 1 ]
 
-    #     no_sp_words = words.strip().replace(" ", "")
-    #     if(len(no_sp_words) > self.degradation_tip):
-    #         num_words_to_write =  len(no_sp_words) - self.degradation_tip
-    #         # " ".join(str(x) for x in L)
-    #         spaces = num_words_to_write - 1
-    #         words_to_write = words[0 : num_words_to_write + spaces] # this may need to be -1
-    #         paper.write_to_paper(words_to_write)
-    #         # sharpen_pencil()
-    #         words_left_to_write = words[num_words_to_write + 1 :]
-    #         write_to_page(words_left_to_write, paper)
-    #     else:
-    #         self.degradation_tip -= len(no_sp_words)
-    #         paper.write_to_paper(words)
-            
-    #     return paper.paper_list
+        count = -1
+        new_str = list(" " * (len(words) + 1))
+        for c in reversed(words):
+            print(c)
+            if(c == " "):
+                new_str[count] = c
+                count -= 1
+            elif(self.eraser_degradation > 0):
+                new_str[count] = " "
+                count -= 1
+                self.eraser_degradation -= 1
+            else:
+                new_str[count] = c
+                count -= 1
+        new_str = ''.join(new_str)
+        last = paper.get_words()[st_index + len(words):]
+        paper.set_words(first+new_str+last)  
+        paper.print_list()

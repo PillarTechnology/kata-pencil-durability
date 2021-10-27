@@ -21,7 +21,7 @@ class TestPencilMethods(unittest.TestCase):
         pencil1 = Pencil(degradation_tip=4)
         words = "hello"
         paper1 = Paper()
-        return_words = pencil1.write_to_page(words)
+        return_words = pencil1.write_to_page(words, paper1)
         self.assertEquals(len("".join(return_words.split())), 4) # test that the return word did not complete
     
 # writing spaces and new lines expends no graphite
@@ -30,7 +30,7 @@ class TestPencilMethods(unittest.TestCase):
         pencil1 = Pencil(degradation_tip=4)
         words = "h e l l o"
         paper1 = Paper()
-        return_words = pencil1.write_to_page(words)
+        return_words = pencil1.write_to_page(words, paper1)
         self.assertEquals("h e l l".strip(), return_words.strip()) 
 
     # test that new lines expends no graphite
@@ -38,7 +38,7 @@ class TestPencilMethods(unittest.TestCase):
         pencil1 = Pencil(degradation_tip=4)
         words = "he\nllo\n"
         paper1 = Paper()
-        return_words = pencil1.write_to_page(words)
+        return_words = pencil1.write_to_page(words, paper1)
         self.assertEquals("he\nll \n", return_words) # this is failing as we aren't keeping track of \n
 
 # the pencil writes spaces when it runs out
@@ -47,7 +47,7 @@ class TestPencilMethods(unittest.TestCase):
         pencil1 = Pencil(degradation_tip=4)
         words = "hello"
         paper1 = Paper()
-        return_words = pencil1.write_to_page(words)
+        return_words = pencil1.write_to_page(words, paper1)
         self.assertEquals("hell ", return_words)
 
 # the upper case letter degrades the pencil by 2 point
@@ -56,7 +56,7 @@ class TestPencilMethods(unittest.TestCase):
         pencil1 = Pencil(degradation_tip=4)
         words = "Hello"
         paper1 = Paper()
-        return_words = pencil1.write_to_page(words)
+        return_words = pencil1.write_to_page(words, paper1)
         self.assertEquals("Hel".strip(), return_words.strip())
 
 # a pencil can be sharpened
@@ -83,6 +83,15 @@ class TestPencilMethods(unittest.TestCase):
         # and if the string "chuck" is erased again, the paper should read:
         # "How much wood would a woodchuck chuck if a wood      could       wood?"
 
+    def test_erase(self):
+        pencil1 = Pencil(degradation_tip= 100000)
+        paper1 = Paper()
+        writing_str = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
+
+        pencil1.write_to_page(writing_str ,paper1)
+        pencil1.erase("chuck", paper1)
+        new_words= paper1.get_words()
+        self.assertEquals(new_words, "How much wood would a woodchuck chuck if a woodchuck could       wood?")
 #Eraser degradation
     # when a pencil is created it CAN BE provided with a value for eraser durability. 
     # All characters except for white spce should degrade by a value of one
